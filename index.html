@@ -1,0 +1,2363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jyoti Crochets</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+--g:#c9a84c;
+--g2:#e8d5a3;
+--dk:#08050f;
+--dk2:#0f0a1e;
+--surface:rgba(255,255,255,0.03);
+--border:rgba(255,255,255,0.07);
+--border-gold:rgba(201,168,76,0.2);
+--text:#f0ece4;
+--muted:rgba(240,236,228,0.45);
+--cream:#faf7f2;
+--cream2:#f3ede0;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--cream);color:#1a1410;overflow-x:hidden}
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:#08050f}
+::-webkit-scrollbar-thumb{background:var(--g);border-radius:2px}
+
+/* ── LOADER ── */
+#loader{
+position:fixed;inset:0;background:var(--dk);
+z-index:99999;display:flex;flex-direction:column;
+align-items:center;justify-content:center;gap:20px;
+transition:opacity 0.8s ease,visibility 0.8s ease;
+}
+#loader.hide{opacity:0;visibility:hidden}
+.ldr-brand{
+font-family:'Cormorant Garamond',serif;
+font-size:2.2rem;font-weight:300;
+color:rgba(255,255,255,0.9);letter-spacing:8px;
+text-transform:uppercase;
+}
+.ldr-brand span{color:var(--g)}
+.ldr-line{
+width:180px;height:1px;
+background:rgba(255,255,255,0.08);
+overflow:hidden;border-radius:1px;
+}
+.ldr-prog{
+height:100%;width:0;
+background:linear-gradient(90deg,transparent,var(--g),transparent);
+animation:ldrAnim 2s ease forwards;
+}
+@keyframes ldrAnim{to{width:100%}}
+.ldr-sub{
+font-size:0.6rem;letter-spacing:5px;
+color:var(--g);text-transform:uppercase;opacity:0.7;
+}
+
+/* ── ANNOUNCEMENT ── */
+.ann{
+background:var(--dk);
+color:var(--muted);
+text-align:center;padding:9px 16px;
+font-size:0.65rem;letter-spacing:2.5px;text-transform:uppercase;
+border-bottom:1px solid var(--border);
+position:relative;overflow:hidden;
+}
+.ann::after{
+content:'';position:absolute;top:0;left:-100%;
+width:40%;height:100%;
+background:linear-gradient(90deg,transparent,rgba(201,168,76,0.05),transparent);
+animation:annShimmer 5s ease infinite;
+}
+@keyframes annShimmer{to{left:200%}}
+.ann b{color:var(--g);font-weight:500}
+
+/* ── HEADER ── */
+header{
+position:sticky;top:0;z-index:1000;
+background:rgba(8,5,15,0.97);
+backdrop-filter:blur(24px);
+-webkit-backdrop-filter:blur(24px);
+border-bottom:1px solid var(--border);
+}
+.hdr-wrap{
+display:flex;align-items:center;
+height:64px;padding:0 24px;
+max-width:1500px;margin:0 auto;gap:16px;
+}
+
+/* BRAND */
+.brand{
+text-decoration:none;display:flex;flex-direction:column;
+white-space:nowrap;flex-shrink:0;
+}
+.brand-name{
+font-family:'Cormorant Garamond',serif;
+font-size:1.45rem;font-weight:600;
+color:#fff;letter-spacing:2px;line-height:1;
+}
+.brand-name em{color:var(--g);font-style:normal}
+
+/* SEARCH */
+.srch{flex:1;max-width:600px;display:flex;height:38px}
+.srch-cat{
+background:rgba(201,168,76,0.12);
+border:1px solid var(--border-gold);
+border-right:none;color:var(--g);
+padding:0 12px;font-size:0.65rem;letter-spacing:1px;
+font-family:'Inter',sans-serif;cursor:pointer;outline:none;
+border-radius:4px 0 0 4px;min-width:80px;
+}
+.srch-cat option{background:#0f0a1e;color:#fff}
+.srch-inp{
+flex:1;background:rgba(255,255,255,0.05);
+border:1px solid var(--border-gold);border-right:none;
+color:#fff;padding:0 14px;font-size:0.82rem;
+font-family:'Inter',sans-serif;outline:none;
+}
+.srch-inp::placeholder{color:rgba(255,255,255,0.2)}
+.srch-btn{
+background:linear-gradient(135deg,var(--g),var(--g2));
+border:none;width:44px;cursor:pointer;
+display:flex;align-items:center;justify-content:center;
+border-radius:0 4px 4px 0;transition:filter 0.2s;flex-shrink:0;
+}
+.srch-btn:hover{filter:brightness(1.15)}
+.srch-btn svg{width:16px;height:16px;stroke:#1a1410;stroke-width:2.5}
+
+/* HDR ACTIONS */
+.hdr-right{
+display:flex;align-items:center;gap:4px;margin-left:auto;flex-shrink:0;
+}
+.hdr-ico{
+background:none;border:none;cursor:pointer;
+display:flex;flex-direction:column;align-items:center;
+gap:3px;padding:6px 10px;color:rgba(255,255,255,0.65);
+transition:color 0.2s;text-decoration:none;
+position:relative;border-radius:6px;
+}
+.hdr-ico:hover{color:#fff;background:rgba(255,255,255,0.04)}
+.hdr-ico svg{width:20px;height:20px;stroke:currentColor;stroke-width:1.6;fill:none}
+.hdr-ico-lbl{font-size:0.5rem;letter-spacing:1.5px;text-transform:uppercase}
+.ico-badge{
+position:absolute;top:3px;right:4px;
+background:var(--g);color:var(--dk);
+border-radius:50%;width:16px;height:16px;
+font-size:0.55rem;font-weight:700;
+display:flex;align-items:center;justify-content:center;
+}
+.owner-btn{
+background:transparent;
+border:1px solid var(--border-gold);
+color:var(--g);padding:8px 16px;
+font-size:0.62rem;letter-spacing:2px;text-transform:uppercase;
+cursor:pointer;font-family:'Inter',sans-serif;
+border-radius:4px;transition:all 0.3s ease;white-space:nowrap;
+}
+.owner-btn:hover{
+background:var(--g);color:var(--dk);font-weight:600;
+}
+
+/* DATE TIME BAR */
+.datetime-bar{
+background:rgba(8,5,15,0.85);
+border-bottom:1px solid var(--border);
+}
+.datetime-inner{
+display:flex;align-items:center;justify-content:space-between;
+max-width:1500px;margin:0 auto;
+padding:6px 24px;
+}
+.dt-left{
+display:flex;align-items:center;gap:20px;
+}
+.dt-item{
+font-size:0.6rem;letter-spacing:1.5px;color:var(--muted);
+text-transform:uppercase;
+}
+.dt-item span{color:rgba(255,255,255,0.55)}
+.dt-right{
+font-size:0.6rem;letter-spacing:1px;color:var(--muted);
+}
+.dt-right b{color:var(--g);font-weight:500}
+
+/* ── NAV ── */
+nav{
+background:rgba(8,5,15,0.9);
+border-bottom:1px solid var(--border);
+}
+.nav-inner{
+display:flex;align-items:center;
+max-width:1500px;margin:0 auto;padding:0 24px;
+overflow-x:auto;scrollbar-width:none;
+}
+.nav-inner::-webkit-scrollbar{display:none}
+.nav-a{
+color:rgba(255,255,255,0.5);text-decoration:none;
+padding:11px 14px;font-size:0.68rem;letter-spacing:1.5px;
+text-transform:uppercase;white-space:nowrap;
+transition:color 0.2s;position:relative;
+display:block;flex-shrink:0;
+}
+.nav-a::after{
+content:'';position:absolute;bottom:0;left:50%;
+transform:translateX(-50%);width:0;height:1px;
+background:var(--g);transition:width 0.3s;
+}
+.nav-a:hover,.nav-a.on{color:var(--g)}
+.nav-a:hover::after,.nav-a.on::after{width:60%}
+.nav-new{color:var(--g)!important;font-weight:500}
+
+/* ── HERO ── */
+.hero{
+min-height:92vh;
+background:var(--dk);
+display:flex;align-items:center;
+position:relative;overflow:hidden;
+}
+.hero-bg{
+position:absolute;inset:0;
+background:
+radial-gradient(ellipse 70% 70% at 15% 50%,rgba(30,15,70,0.7) 0%,transparent 65%),
+radial-gradient(ellipse 50% 80% at 85% 30%,rgba(15,10,30,0.8) 0%,transparent 60%),
+linear-gradient(160deg,#08050f 0%,#0f0a1e 50%,#160e2e 100%);
+}
+.hero-grid{
+position:absolute;inset:0;
+background-image:
+linear-gradient(rgba(201,168,76,0.025) 1px,transparent 1px),
+linear-gradient(90deg,rgba(201,168,76,0.025) 1px,transparent 1px);
+background-size:80px 80px;
+}
+.hero-glow{
+position:absolute;
+width:600px;height:600px;
+background:radial-gradient(circle,rgba(201,168,76,0.06) 0%,transparent 70%);
+top:50%;left:10%;transform:translateY(-50%);
+pointer-events:none;
+}
+.hero-body{
+position:relative;z-index:2;
+padding:0 80px;max-width:760px;
+}
+.hero-tag{
+display:inline-flex;align-items:center;gap:10px;
+margin-bottom:24px;
+}
+.hero-tag-line{width:28px;height:1px;background:var(--g);opacity:0.6}
+.hero-tag-txt{
+font-size:0.62rem;letter-spacing:4px;
+color:var(--g);text-transform:uppercase;
+}
+.hero-h1{
+font-family:'Cormorant Garamond',serif;
+font-size:5.5rem;font-weight:300;
+color:#fff;line-height:0.95;
+margin-bottom:6px;
+}
+.hero-h1 em{
+display:block;font-style:italic;
+background:linear-gradient(135deg,var(--g),var(--g2),#fff8e1,var(--g));
+-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+font-size:6.5rem;
+}
+.hero-sub{
+font-size:0.78rem;letter-spacing:4px;text-transform:uppercase;
+color:rgba(255,255,255,0.3);margin-bottom:28px;margin-top:8px;
+font-family:'Cormorant Garamond',serif;
+}
+.hero-desc{
+font-size:0.85rem;color:rgba(255,255,255,0.45);
+line-height:1.9;max-width:430px;margin-bottom:40px;
+}
+.hero-cta{display:flex;gap:12px;flex-wrap:wrap}
+.btn-prim{
+background:linear-gradient(135deg,var(--g),var(--g2));
+color:#1a1410;border:none;
+padding:14px 36px;font-size:0.68rem;letter-spacing:3px;
+text-transform:uppercase;cursor:pointer;
+font-family:'Inter',sans-serif;font-weight:600;
+border-radius:3px;text-decoration:none;display:inline-block;
+transition:all 0.3s;box-shadow:0 6px 30px rgba(201,168,76,0.25);
+}
+.btn-prim:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(201,168,76,0.4)}
+.btn-sec{
+background:transparent;
+border:1px solid rgba(255,255,255,0.15);
+color:rgba(255,255,255,0.65);
+padding:14px 36px;font-size:0.68rem;letter-spacing:3px;
+text-transform:uppercase;cursor:pointer;
+font-family:'Inter',sans-serif;border-radius:3px;
+text-decoration:none;display:inline-block;
+transition:all 0.3s;
+}
+.btn-sec:hover{border-color:var(--border-gold);color:var(--g)}
+.hero-stats{
+display:flex;gap:40px;margin-top:56px;
+padding-top:32px;border-top:1px solid rgba(255,255,255,0.06);
+}
+.hs-num{
+font-family:'Cormorant Garamond',serif;
+font-size:2.2rem;font-weight:300;color:#fff;
+display:block;line-height:1;
+}
+.hs-num b{color:var(--g);font-style:italic}
+.hs-lbl{
+font-size:0.58rem;letter-spacing:2.5px;color:var(--muted);
+text-transform:uppercase;margin-top:4px;
+}
+
+/* HERO RIGHT */
+.hero-right{
+position:absolute;right:8%;top:50%;transform:translateY(-50%);
+width:340px;pointer-events:none;
+}
+.hero-glass-card{
+background:rgba(255,255,255,0.04);
+backdrop-filter:blur(20px);
+-webkit-backdrop-filter:blur(20px);
+border:1px solid rgba(255,255,255,0.08);
+border-radius:16px;padding:28px;
+box-shadow:0 20px 60px rgba(0,0,0,0.4);
+}
+.hgc-title{
+font-size:0.6rem;letter-spacing:3px;color:var(--g);
+text-transform:uppercase;margin-bottom:16px;
+}
+.hgc-items{display:flex;flex-direction:column;gap:12px}
+.hgc-item{
+display:flex;align-items:center;gap:12px;
+padding:10px 12px;border-radius:8px;
+background:rgba(255,255,255,0.03);
+border:1px solid rgba(255,255,255,0.05);
+}
+.hgc-dot{
+width:8px;height:8px;border-radius:50%;
+background:var(--g);flex-shrink:0;
+}
+.hgc-text{font-size:0.72rem;color:rgba(255,255,255,0.6)}
+.hgc-val{
+font-size:0.72rem;color:#fff;margin-left:auto;
+font-weight:500;
+}
+.hero-float-badge{
+position:absolute;bottom:-16px;right:20px;
+background:linear-gradient(135deg,var(--g),var(--g2));
+color:#1a1410;border-radius:8px;padding:12px 18px;
+box-shadow:0 12px 40px rgba(201,168,76,0.35);
+}
+.hfb-num{
+font-family:'Cormorant Garamond',serif;
+font-size:1.8rem;font-weight:600;color:#1a1410;line-height:1;
+}
+.hfb-txt{font-size:0.55rem;letter-spacing:2px;text-transform:uppercase;opacity:0.7;margin-top:2px}
+
+/* SCROLL IND */
+.scroll-hint{
+position:absolute;bottom:32px;left:80px;
+display:flex;align-items:center;gap:10px;z-index:2;
+}
+.sh-line{
+width:1px;height:50px;
+background:linear-gradient(to bottom,var(--g),transparent);
+animation:shPulse 2s ease infinite;
+}
+@keyframes shPulse{0%,100%{opacity:0.6;height:50px}50%{opacity:1;height:30px}}
+.sh-txt{
+font-size:0.52rem;letter-spacing:3px;color:var(--muted);
+text-transform:uppercase;writing-mode:vertical-rl;
+}
+
+/* ── TICKER ── */
+.ticker{
+background:var(--dk2);
+border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+padding:14px 0;overflow:hidden;
+}
+.ticker-track{
+display:flex;animation:tickScroll 22s linear infinite;
+}
+.ticker-item{
+display:flex;align-items:center;gap:24px;
+padding:0 32px;white-space:nowrap;flex-shrink:0;
+}
+.ticker-txt{font-size:0.62rem;letter-spacing:3px;color:rgba(255,255,255,0.2);text-transform:uppercase}
+.ticker-sep{width:3px;height:3px;background:var(--g);border-radius:50%;opacity:0.4;flex-shrink:0}
+@keyframes tickScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ── FEATURES ── */
+.feats{background:var(--cream2);border-bottom:1px solid rgba(0,0,0,0.06)}
+.feats-inner{
+display:grid;grid-template-columns:repeat(4,1fr);
+max-width:1400px;margin:0 auto;
+}
+.feat{
+padding:32px 24px;text-align:center;
+border-right:1px solid rgba(0,0,0,0.06);
+transition:background 0.3s;position:relative;
+}
+.feat:last-child{border-right:none}
+.feat::after{
+content:'';position:absolute;bottom:0;left:50%;
+transform:translateX(-50%);
+width:0;height:1px;
+background:linear-gradient(90deg,transparent,var(--g),transparent);
+transition:width 0.4s;
+}
+.feat:hover::after{width:50%}
+.feat:hover{background:rgba(201,168,76,0.03)}
+.feat-icon{
+width:44px;height:44px;border-radius:50%;
+background:var(--dk);
+display:flex;align-items:center;justify-content:center;
+margin:0 auto 14px;
+box-shadow:0 4px 20px rgba(8,5,15,0.2);
+}
+.feat-icon svg{width:20px;height:20px;stroke:var(--g);stroke-width:1.5;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.feat-title{font-size:0.8rem;font-weight:600;color:#1a1410;margin-bottom:5px}
+.feat-desc{font-size:0.7rem;color:#6b6058;line-height:1.7}
+
+/* ── SECTION ── */
+.section{padding:80px 24px;max-width:1500px;margin:0 auto}
+.sec-hd{text-align:center;margin-bottom:50px}
+.sec-tag{
+display:inline-flex;align-items:center;gap:8px;margin-bottom:10px;
+}
+.sec-tag-line{width:22px;height:1px;background:var(--g);opacity:0.5}
+.sec-tag-txt{font-size:0.58rem;letter-spacing:4px;color:var(--g);text-transform:uppercase}
+.sec-title{
+font-family:'Cormorant Garamond',serif;
+font-size:3rem;font-weight:300;color:#1a1410;line-height:1.1;
+}
+.sec-title em{font-style:italic;color:var(--g)}
+.sec-title-light{color:#fff}
+.sec-title-light em{color:var(--g)}
+.sec-desc{
+font-size:0.78rem;color:#6b6058;
+max-width:460px;margin:10px auto 0;line-height:1.85;
+}
+.sec-desc-light{color:var(--muted)}
+
+/* ── CATS ── */
+.cats-section{
+background:var(--dk);padding:80px 24px;
+}
+.cats-inner{max-width:1400px;margin:0 auto}
+.cats-grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:16px;
+}
+.cat-c{
+position:relative;overflow:hidden;
+border-radius:8px;cursor:pointer;
+border:1px solid rgba(255,255,255,0.06);
+aspect-ratio:16/10;
+transition:all 0.5s cubic-bezier(0.25,0.46,0.45,0.94);
+background:var(--dk2);
+}
+.cat-c:hover{
+transform:translateY(-6px);
+border-color:var(--border-gold);
+box-shadow:0 20px 60px rgba(0,0,0,0.5);
+}
+.cat-grad{
+position:absolute;inset:0;
+transition:transform 0.6s ease;
+}
+.cat-c:hover .cat-grad{transform:scale(1.05)}
+.cat-ov{
+position:absolute;inset:0;
+background:linear-gradient(to top,rgba(8,5,15,0.9) 0%,rgba(8,5,15,0.2) 60%,transparent 100%);
+}
+.cat-body{
+position:absolute;bottom:0;left:0;right:0;
+padding:20px;
+}
+.cat-name{
+font-family:'Cormorant Garamond',serif;
+font-size:1.35rem;font-weight:400;color:#fff;margin-bottom:2px;
+}
+.cat-cnt{font-size:0.6rem;letter-spacing:2px;color:var(--muted);text-transform:uppercase}
+.cat-arrow{
+position:absolute;top:14px;right:14px;
+width:30px;height:30px;
+border:1px solid rgba(201,168,76,0.3);border-radius:50%;
+display:flex;align-items:center;justify-content:center;
+opacity:0;transform:scale(0.8);
+transition:all 0.3s;background:rgba(8,5,15,0.6);backdrop-filter:blur(8px);
+}
+.cat-c:hover .cat-arrow{opacity:1;transform:scale(1)}
+.cat-arrow svg{width:12px;height:12px;stroke:var(--g);stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+
+/* ── PRODUCTS ── */
+.prods-section{background:var(--cream);padding:80px 24px}
+.prods-inner{max-width:1500px;margin:0 auto}
+.filter-bar{
+display:flex;align-items:center;gap:8px;
+margin-bottom:36px;flex-wrap:wrap;
+}
+.fb{
+padding:8px 18px;border-radius:20px;
+font-size:0.62rem;letter-spacing:1.5px;text-transform:uppercase;
+cursor:pointer;font-family:'Inter',sans-serif;
+transition:all 0.25s;
+background:transparent;
+border:1px solid rgba(0,0,0,0.12);
+color:#6b6058;
+}
+.fb:hover,.fb.on{
+background:#1a1410;border-color:#1a1410;
+color:var(--g);
+}
+.sort-side{
+margin-left:auto;display:flex;align-items:center;gap:8px;
+}
+.sort-lbl{font-size:0.62rem;color:#6b6058;letter-spacing:1px}
+.sort-sel{
+background:transparent;border:1px solid rgba(0,0,0,0.12);
+color:#1a1410;padding:7px 12px;font-size:0.68rem;
+font-family:'Inter',sans-serif;cursor:pointer;outline:none;border-radius:20px;
+}
+.prod-grid{
+display:grid;
+grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+gap:20px;
+}
+.prod-card{
+background:#fff;border-radius:8px;overflow:hidden;
+border:1px solid rgba(0,0,0,0.07);
+transition:all 0.4s cubic-bezier(0.25,0.46,0.45,0.94);
+cursor:pointer;
+}
+.prod-card:hover{
+transform:translateY(-8px);
+box-shadow:0 24px 60px rgba(26,20,16,0.12);
+border-color:rgba(201,168,76,0.25);
+}
+.prod-img-box{
+position:relative;overflow:hidden;aspect-ratio:1;
+background:linear-gradient(135deg,#f5f0e8,#ede6d8);
+}
+.prod-img{width:100%;height:100%;object-fit:cover;transition:transform 0.6s ease}
+.prod-card:hover .prod-img{transform:scale(1.07)}
+.prod-ph{
+width:100%;height:100%;
+display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;
+}
+.prod-ph svg{width:36px;height:36px;stroke:rgba(201,168,76,0.3);stroke-width:1;fill:none}
+.prod-ph span{font-size:0.55rem;letter-spacing:3px;color:rgba(0,0,0,0.15);text-transform:uppercase}
+.prod-badge{
+position:absolute;top:10px;left:10px;
+padding:4px 10px;border-radius:3px;
+font-size:0.55rem;letter-spacing:1.5px;text-transform:uppercase;font-weight:600;
+}
+.pb-new{background:linear-gradient(135deg,var(--dk),var(--dk2));color:var(--g)}
+.pb-best{background:linear-gradient(135deg,var(--g),var(--g2));color:#1a1410}
+.pb-sale{background:linear-gradient(135deg,#7c2020,#c42020);color:#fff}
+.pb-ltd{background:linear-gradient(135deg,#1a2c4a,#2a4070);color:rgba(255,255,255,0.85)}
+.prod-wish{
+position:absolute;top:10px;right:10px;
+width:32px;height:32px;
+background:rgba(255,255,255,0.92);
+backdrop-filter:blur(8px);border:none;border-radius:50%;
+cursor:pointer;display:flex;align-items:center;justify-content:center;
+opacity:0;transform:scale(0.8);transition:all 0.25s;
+box-shadow:0 2px 12px rgba(0,0,0,0.1);
+}
+.prod-card:hover .prod-wish{opacity:1;transform:scale(1)}
+.prod-wish:hover{background:var(--dk)}
+.prod-wish svg{width:14px;height:14px;stroke:#6b6058;stroke-width:2;fill:none;transition:all 0.2s}
+.prod-wish:hover svg,.prod-wish.liked svg{stroke:#fff}
+.prod-wish.liked{background:#c42020}
+.prod-hover-bar{
+position:absolute;bottom:0;left:0;right:0;
+display:flex;gap:0;
+transform:translateY(100%);transition:transform 0.35s ease;
+}
+.prod-card:hover .prod-hover-bar{transform:translateY(0)}
+.phb-view,.phb-cart{
+flex:1;padding:10px;font-size:0.58rem;letter-spacing:1.5px;
+text-transform:uppercase;border:none;cursor:pointer;
+font-family:'Inter',sans-serif;transition:all 0.2s;
+}
+.phb-view{background:rgba(8,5,15,0.88);color:rgba(255,255,255,0.7);backdrop-filter:blur(8px)}
+.phb-view:hover{color:var(--g)}
+.phb-cart{background:linear-gradient(135deg,var(--g),var(--g2));color:#1a1410;font-weight:600}
+.phb-cart:hover{filter:brightness(1.1)}
+.prod-info{padding:16px 18px 18px}
+.prod-cat-lbl{font-size:0.58rem;letter-spacing:2.5px;color:var(--g);text-transform:uppercase;margin-bottom:6px}
+.prod-name{
+font-family:'Cormorant Garamond',serif;
+font-size:1.1rem;font-weight:500;color:#1a1410;
+line-height:1.3;margin-bottom:8px;
+}
+.prod-stars-row{display:flex;align-items:center;gap:6px;margin-bottom:12px}
+.stars-wrap{display:flex;gap:1px}
+.star{width:10px;height:10px;fill:var(--g)}
+.star.e{fill:#e0d8cc}
+.rev{font-size:0.6rem;color:#6b6058}
+.prod-price-row{display:flex;align-items:center;justify-content:space-between}
+.price-now{
+font-family:'Cormorant Garamond',serif;
+font-size:1.35rem;font-weight:500;color:#1a1410;
+}
+.price-was{font-size:0.72rem;color:#9e9088;text-decoration:line-through;margin-left:5px}
+.cart-mini{
+width:36px;height:36px;
+background:var(--dk);border:none;border-radius:50%;
+cursor:pointer;display:flex;align-items:center;justify-content:center;
+transition:all 0.3s;box-shadow:0 3px 12px rgba(8,5,15,0.2);
+}
+.cart-mini:hover{background:linear-gradient(135deg,var(--g),var(--g2));transform:scale(1.08)}
+.cart-mini svg{width:15px;height:15px;stroke:#fff;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round;transition:stroke 0.2s}
+.cart-mini:hover svg{stroke:#1a1410}
+.no-prods{
+grid-column:1/-1;text-align:center;padding:70px 40px;
+}
+.no-prods svg{width:60px;height:60px;stroke:rgba(0,0,0,0.1);margin:0 auto 16px;display:block;fill:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round}
+.no-prods h3{font-family:'Cormorant Garamond',serif;font-size:1.6rem;color:rgba(0,0,0,0.18);margin-bottom:6px}
+.no-prods p{font-size:0.72rem;color:rgba(0,0,0,0.13);letter-spacing:0.5px}
+
+/* ── STORY ── */
+.story-section{
+background:var(--dk);padding:100px 24px;
+}
+.story-inner{
+display:grid;grid-template-columns:1fr 1fr;
+gap:80px;align-items:center;max-width:1100px;margin:0 auto;
+}
+.story-visual{position:relative}
+.story-frame{
+width:100%;aspect-ratio:3/4;
+border:1px solid var(--border-gold);border-radius:8px;
+background:rgba(255,255,255,0.02);
+display:flex;align-items:center;justify-content:center;
+position:relative;overflow:hidden;
+}
+.story-frame::before{
+content:'';position:absolute;inset:0;
+background:radial-gradient(circle at 30% 30%,rgba(201,168,76,0.05),transparent 70%);
+}
+.sf-jc{
+font-family:'Cormorant Garamond',serif;
+font-size:9rem;font-weight:300;
+color:rgba(201,168,76,0.06);line-height:1;letter-spacing:4px;
+}
+.sf-badge{
+position:absolute;bottom:-14px;right:-14px;
+width:100px;height:100px;border-radius:50%;
+background:linear-gradient(135deg,var(--g),var(--g2));
+display:flex;flex-direction:column;align-items:center;justify-content:center;
+box-shadow:0 12px 40px rgba(201,168,76,0.35);
+}
+.sf-b-num{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:600;color:var(--dk);line-height:1}
+.sf-b-txt{font-size:0.48rem;letter-spacing:1.5px;color:var(--dk);text-transform:uppercase;opacity:0.7;text-align:center}
+.story-text p{
+font-family:'Cormorant Garamond',serif;
+font-size:1.1rem;font-weight:300;
+color:rgba(255,255,255,0.5);line-height:1.9;margin-bottom:18px;
+}
+.story-text p strong{color:rgba(255,255,255,0.8);font-weight:400;font-style:italic}
+.story-line{width:48px;height:1px;background:linear-gradient(90deg,var(--g),transparent);margin:24px 0}
+.story-sig{
+font-family:'Cormorant Garamond',serif;
+font-size:2rem;font-style:italic;font-weight:300;color:var(--g);opacity:0.7;
+}
+
+/* ── OFFER ── */
+.offer-section{
+background:var(--dk2);
+border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+padding:70px 24px;
+}
+.offer-inner{
+display:grid;grid-template-columns:1fr auto 1fr;
+align-items:center;gap:50px;max-width:1100px;margin:0 auto;
+}
+.offer-txt-title{
+font-family:'Cormorant Garamond',serif;
+font-size:2.5rem;font-weight:300;color:#fff;margin-bottom:10px;line-height:1.2;
+}
+.offer-txt-title em{font-style:italic;color:var(--g)}
+.offer-txt-desc{font-size:0.75rem;color:var(--muted);line-height:1.8;margin-bottom:24px}
+.offer-circle{
+width:180px;height:180px;border-radius:50%;flex-shrink:0;
+background:linear-gradient(135deg,var(--g),var(--g2));
+display:flex;flex-direction:column;align-items:center;justify-content:center;
+box-shadow:0 0 0 12px rgba(201,168,76,0.07),0 0 0 24px rgba(201,168,76,0.03);
+animation:ocPulse 3s ease-in-out infinite;
+}
+@keyframes ocPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.03)}}
+.oc-pct{font-family:'Cormorant Garamond',serif;font-size:3.5rem;font-weight:700;color:var(--dk);line-height:1}
+.oc-off{font-size:0.65rem;letter-spacing:3px;color:var(--dk);text-transform:uppercase;font-weight:600}
+.oc-lbl{font-size:0.5rem;letter-spacing:1.5px;color:rgba(26,20,16,0.6);text-transform:uppercase;margin-top:3px}
+.offer-right{text-align:right}
+.offer-list{list-style:none;margin-bottom:24px}
+.offer-list li{
+font-size:0.72rem;color:var(--muted);margin-bottom:9px;
+display:flex;align-items:center;justify-content:flex-end;gap:8px;letter-spacing:0.5px;
+}
+.offer-list li::after{
+content:'';width:5px;height:5px;border-radius:50%;
+background:var(--g);opacity:0.5;flex-shrink:0;
+}
+
+/* ── TESTI ── */
+.testi-section{background:var(--cream2);padding:80px 24px}
+.testi-inner{max-width:1200px;margin:0 auto}
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.testi-card{
+background:#fff;border:1px solid rgba(0,0,0,0.06);
+border-radius:8px;padding:28px;
+transition:all 0.4s;position:relative;overflow:hidden;
+}
+.testi-card::before{
+content:'';position:absolute;top:0;left:0;right:0;height:1px;
+background:linear-gradient(90deg,transparent,var(--g),transparent);
+opacity:0;transition:opacity 0.3s;
+}
+.testi-card:hover{transform:translateY(-6px);box-shadow:0 20px 50px rgba(26,20,16,0.09)}
+.testi-card:hover::before{opacity:1}
+.testi-q{
+font-family:'Cormorant Garamond',serif;
+font-size:3.5rem;color:var(--g);opacity:0.18;line-height:0.8;margin-bottom:10px;
+}
+.testi-txt{
+font-family:'Cormorant Garamond',serif;
+font-size:1rem;font-weight:300;font-style:italic;
+color:#1a1410;line-height:1.8;margin-bottom:20px;opacity:0.8;
+}
+.testi-auth{display:flex;align-items:center;gap:12px}
+.testi-av{
+width:40px;height:40px;border-radius:50%;
+background:linear-gradient(135deg,var(--dk),var(--dk2));
+display:flex;align-items:center;justify-content:center;
+font-family:'Cormorant Garamond',serif;
+font-size:1.1rem;color:var(--g);
+}
+.testi-stars{display:flex;gap:2px;margin-bottom:4px}
+.t-star{width:10px;height:10px;fill:var(--g)}
+.testi-name{font-size:0.75rem;font-weight:600;color:#1a1410}
+.testi-loc{font-size:0.62rem;color:#6b6058;letter-spacing:0.5px}
+
+/* ── NEWSLETTER ── */
+.nl-section{
+background:var(--dk);padding:80px 24px;
+position:relative;overflow:hidden;
+}
+.nl-section::before{
+content:'';position:absolute;inset:0;
+background:radial-gradient(ellipse 60% 80% at 50% 50%,rgba(201,168,76,0.03),transparent);
+}
+.nl-inner{max-width:580px;margin:0 auto;text-align:center;position:relative}
+.nl-title{
+font-family:'Cormorant Garamond',serif;
+font-size:2.5rem;font-weight:300;color:#fff;margin-bottom:10px;
+}
+.nl-desc{font-size:0.75rem;color:var(--muted);line-height:1.8;margin-bottom:28px}
+.nl-form{display:flex;gap:0;max-width:420px;margin:0 auto}
+.nl-inp{
+flex:1;background:rgba(255,255,255,0.05);
+border:1px solid var(--border-gold);border-right:none;
+color:#fff;padding:14px 18px;font-size:0.78rem;
+font-family:'Inter',sans-serif;outline:none;
+border-radius:4px 0 0 4px;transition:border-color 0.3s;
+}
+.nl-inp:focus{border-color:rgba(201,168,76,0.5)}
+.nl-inp::placeholder{color:rgba(255,255,255,0.18)}
+.nl-btn{
+background:linear-gradient(135deg,var(--g),var(--g2));
+border:none;color:#1a1410;
+padding:14px 24px;font-size:0.62rem;letter-spacing:3px;
+text-transform:uppercase;cursor:pointer;
+font-family:'Inter',sans-serif;font-weight:700;
+border-radius:0 4px 4px 0;transition:filter 0.2s;
+}
+.nl-btn:hover{filter:brightness(1.1)}
+
+/* ── FOOTER ── */
+footer{background:var(--dk);border-top:1px solid var(--border)}
+.foot-main{
+display:grid;grid-template-columns:2fr 1fr 1fr 1fr;
+gap:50px;padding:60px 40px;max-width:1500px;margin:0 auto;
+}
+.foot-brand-name{
+font-family:'Cormorant Garamond',serif;
+font-size:1.5rem;font-weight:400;color:#fff;letter-spacing:2px;
+}
+.foot-brand-name em{color:var(--g);font-style:normal}
+.foot-desc{
+font-size:0.72rem;color:rgba(255,255,255,0.25);
+line-height:1.85;max-width:260px;margin:14px 0 22px;
+}
+.foot-social{display:flex;gap:8px}
+.soc{
+width:34px;height:34px;
+border:1px solid var(--border-gold);border-radius:50%;
+display:flex;align-items:center;justify-content:center;
+cursor:pointer;transition:all 0.3s;background:transparent;
+}
+.soc:hover{background:rgba(201,168,76,0.1);border-color:var(--g);transform:translateY(-2px)}
+.soc svg{width:14px;height:14px;stroke:rgba(255,255,255,0.35);stroke-width:1.5;fill:none;transition:stroke 0.2s}
+.soc:hover svg{stroke:var(--g)}
+.foot-col h4{
+font-size:0.58rem;letter-spacing:3.5px;color:var(--g);
+text-transform:uppercase;margin-bottom:18px;
+padding-bottom:10px;border-bottom:1px solid var(--border);
+}
+.foot-col ul{list-style:none}
+.foot-col ul li{margin-bottom:8px}
+.foot-col ul li a{
+color:rgba(255,255,255,0.25);text-decoration:none;
+font-size:0.72rem;transition:all 0.2s;letter-spacing:0.3px;
+}
+.foot-col ul li a:hover{color:var(--g);padding-left:4px}
+.foot-bot{
+border-top:1px solid var(--border);padding:18px 40px;
+display:flex;align-items:center;justify-content:space-between;
+max-width:1500px;margin:0 auto;
+}
+.foot-copy{font-size:0.6rem;color:rgba(255,255,255,0.15);letter-spacing:1px}
+.foot-live{
+display:flex;align-items:center;gap:6px;
+font-size:0.58rem;color:rgba(255,255,255,0.15);letter-spacing:1px;
+}
+.live-dot{
+width:5px;height:5px;background:#4ade80;border-radius:50%;
+animation:livePulse 2s ease infinite;
+}
+@keyframes livePulse{0%,100%{opacity:1}50%{opacity:0.3}}
+
+/* ── OVERLAYS ── */
+.ov{
+position:fixed;inset:0;
+background:rgba(0,0,0,0.85);
+z-index:10000;
+display:flex;align-items:center;justify-content:center;
+padding:16px;
+opacity:0;visibility:hidden;
+transition:all 0.35s ease;
+backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+}
+.ov.open{opacity:1;visibility:visible}
+.modal{
+background:linear-gradient(160deg,#08050f 0%,#0f0a1e 60%,#140e28 100%);
+border:1px solid var(--border-gold);border-radius:12px;
+position:relative;
+box-shadow:0 40px 100px rgba(0,0,0,0.7);
+transform:translateY(20px) scale(0.97);
+transition:all 0.4s cubic-bezier(0.34,1.56,0.64,1);
+}
+.ov.open .modal{transform:translateY(0) scale(1)}
+.modal-x{
+position:absolute;top:14px;right:14px;
+background:rgba(255,255,255,0.05);border:none;
+color:rgba(255,255,255,0.35);
+width:30px;height:30px;border-radius:50%;cursor:pointer;
+display:flex;align-items:center;justify-content:center;
+font-size:0.9rem;transition:all 0.2s;z-index:2;
+}
+.modal-x:hover{background:rgba(201,168,76,0.15);color:var(--g)}
+
+/* ADMIN MODAL */
+.adm-modal{max-width:400px;width:100%;padding:40px}
+.adm-modal-top{text-align:center;margin-bottom:28px}
+.adm-modal-brand{
+font-family:'Cormorant Garamond',serif;
+font-size:1.4rem;color:#fff;letter-spacing:2px;
+}
+.adm-modal-brand em{color:var(--g);font-style:normal}
+.adm-modal-badge{
+display:inline-block;
+background:rgba(201,168,76,0.08);border:1px solid var(--border-gold);
+color:var(--g);padding:4px 14px;
+font-size:0.52rem;letter-spacing:4px;text-transform:uppercase;
+border-radius:20px;margin-top:8px;
+}
+.adm-modal-title{
+font-family:'Cormorant Garamond',serif;
+font-size:1.5rem;font-weight:300;color:#fff;
+text-align:center;margin-bottom:5px;
+}
+.adm-modal-sub{font-size:0.62rem;color:rgba(255,255,255,0.25);text-align:center;margin-bottom:28px;letter-spacing:1px}
+.fg{margin-bottom:16px}
+.flbl{display:block;font-size:0.58rem;letter-spacing:2.5px;color:rgba(255,255,255,0.35);text-transform:uppercase;margin-bottom:6px}
+.finp{
+width:100%;background:rgba(255,255,255,0.04);
+border:1px solid var(--border-gold);
+color:#fff;padding:12px 14px;
+font-size:0.82rem;border-radius:4px;outline:none;
+font-family:'Inter',sans-serif;transition:all 0.25s;
+}
+.finp:focus{border-color:rgba(201,168,76,0.5);background:rgba(255,255,255,0.06)}
+.finp::placeholder{color:rgba(255,255,255,0.15)}
+.finp.err{border-color:rgba(210,50,50,0.6)}
+.ferr{color:#ff7070;font-size:0.6rem;margin-top:4px;display:none}
+.ferr.show{display:block}
+.fdivider{border:none;border-top:1px solid var(--border);margin:18px 0}
+.fdiv-lbl{text-align:center;font-size:0.55rem;letter-spacing:3px;color:rgba(201,168,76,0.35);text-transform:uppercase;margin-bottom:14px}
+.fsub{
+width:100%;background:linear-gradient(135deg,var(--g),var(--g2));
+border:none;color:#1a1410;padding:13px;
+font-size:0.65rem;letter-spacing:4px;text-transform:uppercase;
+cursor:pointer;font-family:'Inter',sans-serif;font-weight:700;
+border-radius:4px;margin-top:6px;transition:all 0.3s;
+}
+.fsub:hover{transform:translateY(-1px);box-shadow:0 10px 35px rgba(201,168,76,0.35)}
+
+/* PRODUCT MODAL */
+.prod-modal{max-width:880px;width:100%;padding:0;overflow:hidden}
+.pm-grid{display:grid;grid-template-columns:1fr 1fr}
+.pm-img-side{
+background:linear-gradient(135deg,#f5f0e8,#ede6d8);
+min-height:440px;display:flex;align-items:center;justify-content:center;
+position:relative;overflow:hidden;
+}
+.pm-img-side img{width:100%;height:100%;object-fit:cover}
+.pm-img-ph{text-align:center;padding:40px}
+.pm-img-ph svg{width:50px;height:50px;stroke:rgba(201,168,76,0.25);margin:0 auto 10px;display:block;fill:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round}
+.pm-img-ph span{font-size:0.55rem;letter-spacing:3px;color:rgba(0,0,0,0.15);text-transform:uppercase}
+.pm-info-side{
+padding:36px;display:flex;flex-direction:column;
+overflow-y:auto;max-height:540px;
+}
+.pm-cat{font-size:0.58rem;letter-spacing:3px;color:var(--g);text-transform:uppercase;margin-bottom:8px}
+.pm-name{
+font-family:'Cormorant Garamond',serif;
+font-size:2rem;font-weight:400;color:#fff;line-height:1.2;margin-bottom:12px;
+}
+.pm-stars-row{display:flex;align-items:center;gap:8px;margin-bottom:14px}
+.pm-was{font-size:0.78rem;color:rgba(255,255,255,0.25);text-decoration:line-through;margin-bottom:3px}
+.pm-price{
+font-family:'Cormorant Garamond',serif;
+font-size:2.2rem;font-weight:400;color:var(--g);margin-bottom:14px;
+}
+.pm-desc{font-size:0.75rem;color:rgba(255,255,255,0.4);line-height:1.85;margin-bottom:18px}
+.pm-detail{margin-bottom:6px;display:flex;gap:12px}
+.pm-d-lbl{font-size:0.58rem;letter-spacing:2px;color:var(--g);text-transform:uppercase;min-width:80px;flex-shrink:0}
+.pm-d-val{font-size:0.72rem;color:rgba(255,255,255,0.45)}
+.pm-hr{border:none;border-top:1px solid var(--border);margin:16px 0}
+.pm-qty-row{display:flex;align-items:center;gap:14px;margin-bottom:16px}
+.pm-qty-lbl{font-size:0.58rem;letter-spacing:2px;color:var(--muted);text-transform:uppercase}
+.qty-ctrl{display:flex;border:1px solid var(--border-gold);border-radius:4px;overflow:hidden}
+.qb{background:rgba(201,168,76,0.08);border:none;color:var(--g);width:32px;height:32px;cursor:pointer;font-size:1rem;transition:background 0.2s}
+.qb:hover{background:rgba(201,168,76,0.18)}
+.qi{width:44px;background:transparent;border:none;color:#fff;text-align:center;font-size:0.82rem;font-family:'Inter',sans-serif;outline:none}
+.pm-add{
+background:linear-gradient(135deg,var(--g),var(--g2));
+border:none;color:#1a1410;padding:13px;width:100%;
+font-size:0.65rem;letter-spacing:4px;text-transform:uppercase;cursor:pointer;
+font-family:'Inter',sans-serif;font-weight:700;border-radius:4px;
+transition:all 0.3s;margin-bottom:8px;
+}
+.pm-add:hover{filter:brightness(1.08);box-shadow:0 8px 30px rgba(201,168,76,0.35)}
+.pm-note{font-size:0.58rem;color:rgba(255,255,255,0.2);text-align:center;letter-spacing:1px}
+
+/* ── CART SIDEBAR ── */
+.cart-side{
+position:fixed;top:0;right:-480px;width:480px;height:100vh;
+background:linear-gradient(160deg,#08050f,#0f0a1e 60%,#140e28);
+border-left:1px solid var(--border);z-index:9999;
+display:flex;flex-direction:column;
+transition:right 0.45s cubic-bezier(0.25,0.46,0.45,0.94);
+box-shadow:-20px 0 60px rgba(0,0,0,0.5);
+}
+.cart-side.open{right:0}
+.cart-bk{
+position:fixed;inset:0;background:rgba(0,0,0,0.65);
+z-index:9998;opacity:0;visibility:hidden;
+transition:all 0.35s;backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);
+}
+.cart-bk.open{opacity:1;visibility:visible}
+.cart-hd{
+padding:24px 28px;border-bottom:1px solid var(--border);
+display:flex;align-items:center;justify-content:space-between;
+}
+.cart-hd-title{
+font-family:'Cormorant Garamond',serif;
+font-size:1.3rem;font-weight:300;color:#fff;
+}
+.cart-hd-ct{font-size:0.58rem;color:var(--muted);letter-spacing:2px;margin-top:2px}
+.cart-xbtn{
+background:rgba(255,255,255,0.05);border:none;color:rgba(255,255,255,0.35);
+width:32px;height:32px;border-radius:50%;cursor:pointer;
+display:flex;align-items:center;justify-content:center;
+font-size:0.9rem;transition:all 0.2s;
+}
+.cart-xbtn:hover{background:rgba(201,168,76,0.12);color:var(--g)}
+.cart-body{flex:1;overflow-y:auto;padding:16px 20px}
+.cart-empty{
+display:flex;flex-direction:column;align-items:center;
+justify-content:center;height:100%;text-align:center;
+}
+.cart-empty svg{width:50px;height:50px;stroke:rgba(201,168,76,0.12);margin-bottom:16px;fill:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round}
+.cart-empty p{
+font-family:'Cormorant Garamond',serif;
+font-size:1.2rem;color:rgba(255,255,255,0.18);
+}
+.ci{display:flex;gap:14px;padding:16px 0;border-bottom:1px solid var(--border)}
+.ci-img{
+width:70px;height:70px;border-radius:6px;overflow:hidden;
+border:1px solid var(--border);flex-shrink:0;
+background:rgba(255,255,255,0.03);
+display:flex;align-items:center;justify-content:center;
+}
+.ci-img img{width:100%;height:100%;object-fit:cover}
+.ci-nm{font-size:0.82rem;color:rgba(255,255,255,0.75);margin-bottom:4px}
+.ci-pr{font-size:0.78rem;color:var(--g);font-weight:500;margin-bottom:10px}
+.ci-qty-row{display:flex;align-items:center;gap:8px}
+.ci-qb{
+width:24px;height:24px;border-radius:50%;
+background:rgba(201,168,76,0.1);border:1px solid var(--border-gold);
+color:var(--g);cursor:pointer;font-size:0.85rem;
+display:flex;align-items:center;justify-content:center;transition:all 0.2s;
+}
+.ci-qb:hover{background:var(--g);color:var(--dk)}
+.ci-qn{font-size:0.78rem;color:#fff;min-width:16px;text-align:center}
+.ci-rm{background:none;border:none;color:rgba(255,255,255,0.18);font-size:0.58rem;letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:color 0.2s;font-family:'Inter',sans-serif;align-self:flex-start}
+.ci-rm:hover{color:#ff7070}
+.cart-ft{padding:20px 28px;border-top:1px solid var(--border)}
+.cart-total-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}
+.cart-total-lbl{font-size:0.6rem;letter-spacing:2px;color:var(--muted);text-transform:uppercase}
+.cart-total-val{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:300;color:var(--g)}
+.cart-checkout-btn{
+width:100%;background:linear-gradient(135deg,var(--g),var(--g2));
+border:none;color:#1a1410;padding:14px;font-size:0.65rem;letter-spacing:4px;
+text-transform:uppercase;cursor:pointer;font-family:'Inter',sans-serif;
+font-weight:700;border-radius:4px;margin-top:14px;transition:all 0.3s;
+}
+.cart-checkout-btn:hover{filter:brightness(1.08);box-shadow:0 8px 30px rgba(201,168,76,0.3)}
+
+/* ── ADMIN PAGE ── */
+#adm-page{display:none;min-height:100vh;background:var(--dk)}
+#adm-page.on{display:block}
+#site.off{display:none}
+.adm-hdr{
+background:rgba(8,5,15,0.98);border-bottom:1px solid var(--border);
+padding:0 28px;height:60px;display:flex;align-items:center;
+justify-content:space-between;position:sticky;top:0;z-index:100;
+backdrop-filter:blur(20px);
+}
+.adm-brand{font-family:'Cormorant Garamond',serif;font-size:1.15rem;color:#fff;letter-spacing:2px}
+.adm-brand em{color:var(--g);font-style:normal}
+.adm-hdr-r{display:flex;align-items:center;gap:12px}
+.adm-pill{background:rgba(201,168,76,0.08);border:1px solid var(--border-gold);color:var(--g);padding:5px 14px;font-size:0.52rem;letter-spacing:4px;text-transform:uppercase;border-radius:20px}
+.adm-out{background:rgba(210,50,50,0.07);border:1px solid rgba(210,50,50,0.18);color:rgba(255,120,120,0.75);padding:7px 16px;font-size:0.58rem;letter-spacing:3px;text-transform:uppercase;cursor:pointer;border-radius:4px;font-family:'Inter',sans-serif;transition:all 0.2s}
+.adm-out:hover{background:rgba(210,50,50,0.14);color:#ff8080}
+.adm-layout{display:grid;grid-template-columns:220px 1fr;min-height:calc(100vh - 60px)}
+.adm-nav{background:rgba(0,0,0,0.45);border-right:1px solid var(--border);padding:24px 0}
+.adm-ni{
+display:flex;align-items:center;gap:10px;padding:11px 20px;
+color:rgba(255,255,255,0.28);cursor:pointer;transition:all 0.25s;
+font-size:0.62rem;letter-spacing:2px;text-transform:uppercase;
+border-left:2px solid transparent;
+}
+.adm-ni svg{width:15px;height:15px;stroke:currentColor;stroke-width:1.5;fill:none;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+.adm-ni:hover,.adm-ni.on{color:var(--g);background:rgba(201,168,76,0.04);border-left-color:var(--g)}
+.adm-main{padding:36px;overflow-y:auto}
+.adm-pn{display:none}
+.adm-pn.on{display:block}
+.adm-pg-title{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:300;color:#fff;margin-bottom:3px}
+.adm-pg-sub{font-size:0.6rem;letter-spacing:2px;color:rgba(255,255,255,0.2);text-transform:uppercase;margin-bottom:32px}
+.dash-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:32px}
+.dash-card{
+background:rgba(255,255,255,0.03);border:1px solid var(--border);
+border-radius:6px;padding:20px;position:relative;overflow:hidden;
+}
+.dash-card::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--g),transparent)}
+.dc-lbl{font-size:0.55rem;letter-spacing:2px;color:rgba(255,255,255,0.25);text-transform:uppercase;margin-bottom:8px}
+.dc-val{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:300;color:#fff}
+.dc-val span{color:var(--g)}
+.dc-note{font-size:0.58rem;color:rgba(255,255,255,0.18);margin-top:5px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.form-sec{background:rgba(255,255,255,0.02);border:1px solid var(--border);border-radius:6px;padding:24px}
+.form-sec-ttl{font-size:0.58rem;letter-spacing:4px;color:var(--g);text-transform:uppercase;margin-bottom:20px;padding-bottom:10px;border-bottom:1px solid var(--border)}
+.afg{margin-bottom:16px}
+.aflbl{display:block;font-size:0.58rem;letter-spacing:2px;color:rgba(255,255,255,0.28);text-transform:uppercase;margin-bottom:6px}
+.afinp,.afsel,.afta{
+width:100%;background:rgba(255,255,255,0.04);
+border:1px solid var(--border);
+color:#fff;padding:10px 12px;font-size:0.8rem;border-radius:4px;outline:none;
+font-family:'Inter',sans-serif;transition:all 0.25s;
+}
+.afsel option{background:#0f0a1e;color:#fff}
+.afta{resize:vertical;min-height:80px}
+.afinp:focus,.afsel:focus,.afta:focus{border-color:var(--border-gold);background:rgba(255,255,255,0.06)}
+.afinp::placeholder,.afta::placeholder{color:rgba(255,255,255,0.12)}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.upload-area{
+border:2px dashed var(--border);border-radius:6px;
+padding:30px;text-align:center;cursor:pointer;
+transition:all 0.25s;position:relative;background:rgba(255,255,255,0.01);
+}
+.upload-area:hover,.upload-area.drag{border-color:var(--border-gold);background:rgba(201,168,76,0.03)}
+#img-inp{position:absolute;inset:0;opacity:0;cursor:pointer}
+.upload-area svg{width:36px;height:36px;stroke:rgba(201,168,76,0.2);margin:0 auto 10px;display:block;fill:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round}
+.upload-txt{font-size:0.75rem;color:rgba(255,255,255,0.28);margin-bottom:4px}
+.upload-sub{font-size:0.6rem;color:rgba(255,255,255,0.12);letter-spacing:1px}
+.prev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:14px}
+.prev-item{aspect-ratio:1;border-radius:4px;overflow:hidden;border:1px solid var(--border);position:relative}
+.prev-item img{width:100%;height:100%;object-fit:cover}
+.prev-rm{position:absolute;top:3px;right:3px;background:rgba(0,0,0,0.7);border:none;color:#fff;width:20px;height:20px;border-radius:50%;cursor:pointer;font-size:0.7rem;display:flex;align-items:center;justify-content:center;transition:background 0.2s}
+.prev-rm:hover{background:#c42020}
+.tbl-wrap{background:rgba(255,255,255,0.02);border:1px solid var(--border);border-radius:6px;overflow:hidden}
+.tbl-toolbar{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.tbl-ttl{font-size:0.65rem;letter-spacing:3px;color:rgba(255,255,255,0.5);text-transform:uppercase}
+.tbl-srch{background:rgba(255,255,255,0.04);border:1px solid var(--border);color:#fff;padding:7px 12px;font-size:0.7rem;border-radius:4px;outline:none;font-family:'Inter',sans-serif;width:180px}
+.tbl-srch::placeholder{color:rgba(255,255,255,0.18)}
+table{width:100%;border-collapse:collapse}
+thead th{padding:10px 16px;text-align:left;font-size:0.55rem;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.22);background:rgba(0,0,0,0.25);border-bottom:1px solid var(--border);font-weight:normal}
+tbody td{padding:12px 16px;border-bottom:1px solid rgba(255,255,255,0.025);color:rgba(255,255,255,0.5);font-size:0.75rem}
+tbody tr:hover td{background:rgba(201,168,76,0.015)}
+.tbl-img{width:42px;height:42px;border-radius:4px;border:1px solid var(--border);background:rgba(255,255,255,0.03);display:flex;align-items:center;justify-content:center;overflow:hidden}
+.tbl-img img{width:100%;height:100%;object-fit:cover}
+.tbl-name{color:rgba(255,255,255,0.75);font-weight:500}
+.tbl-price{color:var(--g);font-weight:500}
+.st-pill{padding:3px 9px;border-radius:20px;font-size:0.55rem;letter-spacing:1px;text-transform:uppercase}
+.st-active{background:rgba(74,222,128,0.08);color:#4ade80;border:1px solid rgba(74,222,128,0.18)}
+.st-draft{background:rgba(255,255,255,0.04);color:rgba(255,255,255,0.25);border:1px solid var(--border)}
+.tbl-btns{display:flex;gap:5px}
+.tbl-edit,.tbl-del{padding:4px 11px;font-size:0.55rem;letter-spacing:1px;text-transform:uppercase;border-radius:3px;cursor:pointer;font-family:'Inter',sans-serif;transition:all 0.2s}
+.tbl-edit{background:rgba(201,168,76,0.07);border:1px solid var(--border-gold);color:var(--g)}
+.tbl-edit:hover{background:rgba(201,168,76,0.14)}
+.tbl-del{background:rgba(210,50,50,0.07);border:1px solid rgba(210,50,50,0.18);color:#ff7070}
+.tbl-del:hover{background:rgba(210,50,50,0.14)}
+.adm-save{background:linear-gradient(135deg,var(--g),var(--g2));border:none;color:#1a1410;padding:12px 32px;font-size:0.62rem;letter-spacing:4px;text-transform:uppercase;cursor:pointer;font-family:'Inter',sans-serif;font-weight:700;border-radius:4px;transition:all 0.3s;box-shadow:0 4px 20px rgba(201,168,76,0.2)}
+.adm-save:hover{transform:translateY(-1px);box-shadow:0 10px 35px rgba(201,168,76,0.35)}
+
+/* ── TOAST ── */
+.toast-wrap{position:fixed;bottom:24px;right:24px;z-index:99999;display:flex;flex-direction:column;gap:8px}
+.toast{
+background:linear-gradient(135deg,#08050f,#0f0a1e);
+border:1px solid var(--border-gold);border-left:2px solid var(--g);
+color:rgba(255,255,255,0.8);padding:13px 18px;border-radius:4px;
+font-size:0.75rem;
+box-shadow:0 10px 40px rgba(0,0,0,0.5);
+transform:translateX(120%);transition:all 0.4s cubic-bezier(0.34,1.56,0.64,1);
+min-width:260px;letter-spacing:0.3px;
+}
+.toast.in{transform:translateX(0)}
+.toast.err{border-left-color:#c42020}
+
+/* ── SCROLL TOP ── */
+.scroll-top{
+position:fixed;bottom:24px;left:24px;
+width:40px;height:40px;
+background:rgba(8,5,15,0.9);
+border:1px solid var(--border-gold);
+border-radius:50%;display:flex;align-items:center;justify-content:center;
+cursor:pointer;z-index:999;
+opacity:0;transform:translateY(16px);
+transition:all 0.35s;box-shadow:0 6px 24px rgba(0,0,0,0.4);
+}
+.scroll-top.show{opacity:1;transform:translateY(0)}
+.scroll-top:hover{background:var(--g);border-color:var(--g)}
+.scroll-top svg{width:15px;height:15px;stroke:var(--g);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:stroke 0.2s}
+.scroll-top:hover svg{stroke:var(--dk)}
+
+/* ── MOBILE ── */
+@media(max-width:900px){
+.hdr-wrap{gap:10px}
+.srch-cat{display:none}
+.hero-body{padding:0 24px}
+.hero-h1{font-size:3.5rem}
+.hero-h1 em{font-size:4rem}
+.hero-right{display:none}
+.hero-stats{gap:24px}
+.feats-inner{grid-template-columns:1fr 1fr}
+.feat:nth-child(2){border-right:none}
+.feat:nth-child(3){border-right:1px solid rgba(0,0,0,0.06)}
+.feat:nth-child(3),.feat:nth-child(4){border-top:1px solid rgba(0,0,0,0.06)}
+.cats-grid{grid-template-columns:1fr 1fr}
+.testi-grid{grid-template-columns:1fr}
+.offer-inner{grid-template-columns:1fr;text-align:center}
+.offer-circle{margin:0 auto}
+.offer-right{text-align:center}
+.offer-list li{justify-content:center}
+.offer-list li::after{display:none}
+.offer-list li::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--g);opacity:0.5;flex-shrink:0}
+.story-inner{grid-template-columns:1fr}
+.pm-grid{grid-template-columns:1fr}
+.foot-main{grid-template-columns:1fr 1fr;gap:32px;padding:40px 20px}
+.foot-bot{padding:16px 20px;flex-direction:column;gap:8px;text-align:center}
+.adm-layout{grid-template-columns:1fr}
+.adm-nav{display:none}
+.adm-main{padding:20px}
+.dash-grid{grid-template-columns:1fr 1fr}
+.form-grid{grid-template-columns:1fr}
+}
+@media(max-width:600px){
+.hdr-wrap{padding:0 14px;height:56px}
+.brand-name{font-size:1.2rem}
+.hdr-ico-lbl{display:none}
+.owner-btn{padding:7px 12px;font-size:0.55rem;letter-spacing:1px}
+.datetime-inner{padding:5px 14px}
+.dt-left{gap:12px}
+.nav-inner{padding:0 14px}
+.hero-body{padding:0 18px}
+.hero-h1{font-size:2.8rem}
+.hero-h1 em{font-size:3.2rem}
+.hero-sub{font-size:0.65rem;letter-spacing:2px}
+.hero-stats{flex-wrap:wrap;gap:16px}
+.scroll-hint{left:24px;bottom:20px}
+.cats-grid{grid-template-columns:1fr}
+.feats-inner{grid-template-columns:1fr}
+.feat{border-right:none;border-bottom:1px solid rgba(0,0,0,0.06)}
+.section{padding:60px 16px}
+.sec-title{font-size:2.3rem}
+.offer-title{font-size:2rem}
+.cart-side{width:100vw;right:-100vw}
+.pm-grid{grid-template-columns:1fr}
+.pm-info-side{max-height:none}
+.foot-main{grid-template-columns:1fr;padding:36px 16px;gap:28px}
+.nl-form{flex-direction:column}
+.nl-inp{border-right:1px solid var(--border-gold);border-radius:4px;border-bottom:none}
+.nl-btn{border-radius:4px;padding:12px}
+.hdr-ico:nth-child(2){display:none}
+.datetime-bar{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="ldr-brand">Jyoti <span>Crochets</span></div>
+  <div class="ldr-line"><div class="ldr-prog"></div></div>
+  <div class="ldr-sub">Premium Handcrafted</div>
+</div>
+
+<!-- TOAST -->
+<div class="toast-wrap" id="twrap"></div>
+
+<!-- SCROLL TOP -->
+<button class="scroll-top" id="stbtn" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <svg viewBox="0 0 24 24"><path d="M18 15l-6-6-6 6"/></svg>
+</button>
+
+<!-- CART BACKDROP -->
+<div class="cart-bk" id="cart-bk" onclick="closeCart()"></div>
+
+<!-- CART SIDEBAR -->
+<div class="cart-side" id="cart-side">
+  <div class="cart-hd">
+    <div>
+      <div class="cart-hd-title">Your Cart</div>
+      <div class="cart-hd-ct" id="cart-ct">0 Items</div>
+    </div>
+    <button class="cart-xbtn" onclick="closeCart()">&#10005;</button>
+  </div>
+  <div class="cart-body" id="cart-body"></div>
+  <div class="cart-ft" id="cart-ft" style="display:none">
+    <div class="cart-total-row">
+      <span class="cart-total-lbl">Total</span>
+      <span class="cart-total-val" id="cart-total">Rs. 0</span>
+    </div>
+    <button class="cart-checkout-btn" onclick="doCheckout()">Proceed to Checkout</button>
+  </div>
+</div>
+
+<!-- ADMIN LOGIN OVERLAY -->
+<div class="ov" id="adm-ov">
+  <div class="modal adm-modal">
+    <button class="modal-x" onclick="closeAdmOv()">&#10005;</button>
+    <div class="adm-modal-top">
+      <div class="adm-modal-brand">Jyoti <em>Crochets</em></div>
+      <div class="adm-modal-badge">Restricted Access</div>
+    </div>
+    <h2 class="adm-modal-title">Owner Portal</h2>
+    <p class="adm-modal-sub">Authorized Personnel Only</p>
+    <form onsubmit="doAdmLogin(event)">
+      <div class="fg">
+        <label class="flbl">Username</label>
+        <input class="finp" id="au" type="text" placeholder="Enter username" autocomplete="off">
+        <div class="ferr" id="eu">Incorrect username</div>
+      </div>
+      <div class="fg">
+        <label class="flbl">Password</label>
+        <input class="finp" id="ap" type="password" placeholder="Enter password">
+        <div class="ferr" id="ep">Incorrect password</div>
+      </div>
+      <hr class="fdivider">
+      <div class="fdiv-lbl">Admin Terminal Number</div>
+      <div class="fg">
+        <label class="flbl">Terminal Code</label>
+        <input class="finp" id="at" type="text" placeholder="Enter terminal number" autocomplete="off">
+        <div class="ferr" id="et">Incorrect terminal number</div>
+      </div>
+      <button type="submit" class="fsub">Access Dashboard</button>
+    </form>
+  </div>
+</div>
+
+<!-- PRODUCT DETAIL OVERLAY -->
+<div class="ov" id="prod-ov">
+  <div class="modal prod-modal">
+    <button class="modal-x" onclick="closeProdOv()" style="z-index:10">&#10005;</button>
+    <div class="pm-grid" id="pm-content"></div>
+  </div>
+</div>
+
+<!-- ======= MAIN SITE ======= -->
+<div id="site">
+
+<!-- ANNOUNCEMENT -->
+<div class="ann">
+  Free gift wrapping on every order &nbsp;<b>|</b>&nbsp; <b>100% Handcrafted</b> &nbsp;<b>|</b>&nbsp; Ships across India &nbsp;<b>|</b>&nbsp; Custom orders welcome
+</div>
+
+<!-- HEADER -->
+<header>
+  <div class="hdr-wrap">
+    <a href="#" class="brand" onclick="scrollTop()">
+      <div class="brand-name">Jyoti <em>Crochets</em></div>
+    </a>
+    <div class="srch">
+      <select class="srch-cat" id="sc">
+        <option>All</option>
+        <option>Bags</option>
+        <option>Home Decor</option>
+        <option>Clothing</option>
+        <option>Accessories</option>
+        <option>Toys</option>
+        <option>Gifts</option>
+      </select>
+      <input class="srch-inp" id="si" placeholder="Search handcrafted pieces..." onkeyup="doSearch()">
+      <button class="srch-btn" onclick="doSearch()">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      </button>
+    </div>
+    <div class="hdr-right">
+      <button class="hdr-ico" onclick="openCart()">
+        <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        <span class="hdr-ico-lbl">Cart</span>
+        <div class="ico-badge" id="cart-badge">0</div>
+      </button>
+      <button class="hdr-ico">
+        <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+        <span class="hdr-ico-lbl">Wishlist</span>
+      </button>
+      <button class="owner-btn" onclick="openAdmOv()">Owner Portal</button>
+    </div>
+  </div>
+
+  <!-- DATE TIME BAR -->
+  <div class="datetime-bar">
+    <div class="datetime-inner">
+      <div class="dt-left">
+        <div class="dt-item">Date: <span id="dt-date">—</span></div>
+        <div class="dt-item">Time: <span id="dt-time">—</span></div>
+        <div class="dt-item">Day: <span id="dt-day">—</span></div>
+      </div>
+      <div class="dt-right">Handcrafted with love in <b>India</b></div>
+    </div>
+  </div>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-inner">
+      <a href="#" class="nav-a on" onclick="filterCat('all');setNav(this)">All Collections</a>
+      <a href="#" class="nav-a" onclick="filterCat('bags');setNav(this)">Bags</a>
+      <a href="#" class="nav-a" onclick="filterCat('home-decor');setNav(this)">Home Decor</a>
+      <a href="#" class="nav-a" onclick="filterCat('clothing');setNav(this)">Clothing</a>
+      <a href="#" class="nav-a" onclick="filterCat('accessories');setNav(this)">Accessories</a>
+      <a href="#" class="nav-a" onclick="filterCat('toys');setNav(this)">Toys</a>
+      <a href="#" class="nav-a" onclick="filterCat('gifts');setNav(this)">Gift Sets</a>
+      <a href="#" class="nav-a nav-new" onclick="filterCat('new');setNav(this)">New Arrivals</a>
+    </div>
+  </nav>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-body">
+    <div class="hero-tag">
+      <div class="hero-tag-line"></div>
+      <div class="hero-tag-txt">Exclusively Handcrafted</div>
+      <div class="hero-tag-line"></div>
+    </div>
+    <h1 class="hero-h1">
+      The Art Of
+      <em>Crochet</em>
+    </h1>
+    <div class="hero-sub">Premium Collection</div>
+    <p class="hero-desc">Each piece is crafted by hand with the finest materials. Discover timeless elegance through the art of crochet, reimagined for the modern connoisseur.</p>
+    <div class="hero-cta">
+      <a href="#prods-section" class="btn-prim">Explore Collection</a>
+      <a href="#story-section" class="btn-sec">Our Story</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <span class="hs-num" id="hero-cnt">0<b>+</b></span>
+        <div class="hs-lbl">Unique Pieces</div>
+      </div>
+      <div>
+        <span class="hs-num">100<b>%</b></span>
+        <div class="hs-lbl">Handcrafted</div>
+      </div>
+      <div>
+        <span class="hs-num">5<b>+</b></span>
+        <div class="hs-lbl">Years of Craft</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-glass-card">
+      <div class="hgc-title">Store Highlights</div>
+      <div class="hgc-items">
+        <div class="hgc-item">
+          <div class="hgc-dot"></div>
+          <span class="hgc-text">Free Gift Wrapping</span>
+          <span class="hgc-val">Always</span>
+        </div>
+        <div class="hgc-item">
+          <div class="hgc-dot"></div>
+          <span class="hgc-text">Custom Orders</span>
+          <span class="hgc-val">Open</span>
+        </div>
+        <div class="hgc-item">
+          <div class="hgc-dot"></div>
+          <span class="hgc-text">Pan India Shipping</span>
+          <span class="hgc-val">Available</span>
+        </div>
+        <div class="hgc-item">
+          <div class="hgc-dot"></div>
+          <span class="hgc-text">Starting From</span>
+          <span class="hgc-val">Rs. 299</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-float-badge" style="position:absolute;bottom:-16px;right:20px">
+      <div class="hfb-num">100%</div>
+      <div class="hfb-txt">Handmade</div>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <div class="sh-line"></div>
+    <div class="sh-txt">Scroll</div>
+  </div>
+</div>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-track">
+    <div class="ticker-item"><span class="ticker-txt">Premium Handcrafted Crochet</span><div class="ticker-sep"></div><span class="ticker-txt">Jyoti Crochets</span><div class="ticker-sep"></div><span class="ticker-txt">Made With Love</span><div class="ticker-sep"></div><span class="ticker-txt">100% Handmade</span><div class="ticker-sep"></div><span class="ticker-txt">Free Gift Wrapping</span><div class="ticker-sep"></div><span class="ticker-txt">Custom Orders Welcome</span><div class="ticker-sep"></div><span class="ticker-txt">Ships Across India</span><div class="ticker-sep"></div></div>
+    <div class="ticker-item"><span class="ticker-txt">Premium Handcrafted Crochet</span><div class="ticker-sep"></div><span class="ticker-txt">Jyoti Crochets</span><div class="ticker-sep"></div><span class="ticker-txt">Made With Love</span><div class="ticker-sep"></div><span class="ticker-txt">100% Handmade</span><div class="ticker-sep"></div><span class="ticker-txt">Free Gift Wrapping</span><div class="ticker-sep"></div><span class="ticker-txt">Custom Orders Welcome</span><div class="ticker-sep"></div><span class="ticker-txt">Ships Across India</span><div class="ticker-sep"></div></div>
+  </div>
+</div>
+
+<!-- FEATURES STRIP -->
+<div class="feats">
+  <div class="feats-inner">
+    <div class="feat">
+      <div class="feat-icon"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+      <div class="feat-title">Premium Quality</div>
+      <div class="feat-desc">Finest yarns, every stitch placed with care</div>
+    </div>
+    <div class="feat">
+      <div class="feat-icon"><svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div>
+      <div class="feat-title">Safe Delivery</div>
+      <div class="feat-desc">Carefully packed, shipped with tracking</div>
+    </div>
+    <div class="feat">
+      <div class="feat-icon"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div>
+      <div class="feat-title">Made With Love</div>
+      <div class="feat-desc">Every piece carries genuine passion</div>
+    </div>
+    <div class="feat">
+      <div class="feat-icon"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div>
+      <div class="feat-title">Custom Orders</div>
+      <div class="feat-desc">Your vision, crafted just for you</div>
+    </div>
+  </div>
+</div>
+
+<!-- CATEGORIES -->
+<div class="cats-section">
+  <div class="cats-inner">
+    <div class="sec-hd">
+      <div class="sec-tag"><div class="sec-tag-line"></div><div class="sec-tag-txt">Browse</div><div class="sec-tag-line"></div></div>
+      <h2 class="sec-title sec-title-light">Curated <em>Collections</em></h2>
+    </div>
+    <div class="cats-grid">
+      <div class="cat-c" onclick="filterCat('bags');goToProds()" style="--bg:linear-gradient(160deg,#1a0d3d,#2a1860)">
+        <div class="cat-grad" style="background:linear-gradient(160deg,#1a0d3d,#2a1860)"></div>
+        <div class="cat-ov"></div>
+        <div class="cat-body">
+          <div class="cat-name">Crochet Bags</div>
+          <div class="cat-cnt" id="cc-bags">0 Pieces</div>
+        </div>
+        <div class="cat-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+      </div>
+      <div class="cat-c" onclick="filterCat('home-decor');goToProds()" style="--bg:linear-gradient(160deg,#0d2b2a,#1a4a40)">
+        <div class="cat-grad" style="background:linear-gradient(160deg,#0d2b2a,#1a4a40)"></div>
+        <div class="cat-ov"></div>
+        <div class="cat-body">
+          <div class="cat-name">Home Decor</div>
+          <div class="cat-cnt" id="cc-home-decor">0 Pieces</div>
+        </div>
+        <div class="cat-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+      </div>
+      <div class="cat-c" onclick="filterCat('clothing');goToProds()" style="--bg:linear-gradient(160deg,#2b1a0d,#4a3020)">
+        <div class="cat-grad" style="background:linear-gradient(160deg,#2b1a0d,#4a3020)"></div>
+        <div class="cat-ov"></div>
+        <div class="cat-body">
+          <div class="cat-name">Clothing</div>
+          <div class="cat-cnt" id="cc-clothing">0 Pieces</div>
+        </div>
+        <div class="cat-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+      </div>
+      <div class="cat-c" onclick="filterCat('accessories');goToProds()" style="--bg:linear-gradient(160deg,#1a0d2b,#2d1a4a)">
+        <div class="cat-grad" style="background:linear-gradient(160deg,#1a0d2b,#2d1a4a)"></div>
+        <div class="cat-ov"></div>
+        <div class="cat-body">
+          <div class="cat-name">Accessories</div>
+          <div class="cat-cnt" id="cc-accessories">0 Pieces</div>
+        </div>
+        <div class="cat-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+      </div>
+      <div class="cat-c" onclick="filterCat('toys');goToProds()" style="--bg:linear-gradient(160deg,#0d1a2b,#1a3040)">
+        <div class="cat-grad" style="background:linear-gradient(160deg,#0d1a2b,#1a3040)"></div>
+        <div class="cat-ov"></div>
+        <div class="cat-body">
+          <div class="cat-name">Toys</div>
+          <div class="cat-cnt" id="cc-toys">0 Pieces</div>
+        </div>
+        <div class="cat-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+      </div>
+      <div class="cat-c" onclick="filterCat('gifts');goToProds()" style="--bg:linear-gradient(160deg,#2b1a0d,#3d2810)">
+        <div class="cat-grad" style="background:linear-gradient(160deg,#2b1a0d,#3d2810)"></div>
+        <div class="cat-ov"></div>
+        <div class="cat-body">
+          <div class="cat-name">Gift Sets</div>
+          <div class="cat-cnt" id="cc-gifts">0 Pieces</div>
+        </div>
+        <div class="cat-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PRODUCTS -->
+<div class="prods-section" id="prods-section">
+  <div class="prods-inner">
+    <div class="sec-hd">
+      <div class="sec-tag"><div class="sec-tag-line"></div><div class="sec-tag-txt">Handcrafted Treasures</div><div class="sec-tag-line"></div></div>
+      <h2 class="sec-title">Our <em>Collection</em></h2>
+      <p class="sec-desc">Each piece tells a story of patience, skill and artistry.</p>
+    </div>
+    <div class="filter-bar">
+      <button class="fb on" onclick="filterCat('all');setFb(this)">All</button>
+      <button class="fb" onclick="filterCat('bags');setFb(this)">Bags</button>
+      <button class="fb" onclick="filterCat('home-decor');setFb(this)">Home Decor</button>
+      <button class="fb" onclick="filterCat('clothing');setFb(this)">Clothing</button>
+      <button class="fb" onclick="filterCat('accessories');setFb(this)">Accessories</button>
+      <button class="fb" onclick="filterCat('toys');setFb(this)">Toys</button>
+      <button class="fb" onclick="filterCat('gifts');setFb(this)">Gifts</button>
+      <div class="sort-side">
+        <span class="sort-lbl">Sort:</span>
+        <select class="sort-sel" onchange="doSort(this.value)">
+          <option value="df">Default</option>
+          <option value="lo">Price: Low to High</option>
+          <option value="hi">Price: High to Low</option>
+          <option value="nw">Newest</option>
+        </select>
+      </div>
+    </div>
+    <div class="prod-grid" id="prod-grid"></div>
+  </div>
+</div>
+
+<!-- STORY -->
+<div class="story-section" id="story-section">
+  <div class="section">
+    <div class="story-inner">
+      <div class="story-visual">
+        <div class="story-frame">
+          <div class="sf-jc">JC</div>
+        </div>
+        <div class="sf-badge">
+          <div class="sf-b-num">5+</div>
+          <div class="sf-b-txt">Years of Craft</div>
+        </div>
+      </div>
+      <div class="story-text">
+        <div class="sec-tag" style="margin-bottom:16px"><div class="sec-tag-line"></div><div class="sec-tag-txt">Our Story</div></div>
+        <h2 class="sec-title sec-title-light" style="margin-bottom:26px">The Woman <em>Behind The Thread</em></h2>
+        <p>My name is <strong>Jyoti</strong>, and every piece in this collection is born from my hands and my heart. What started as a quiet hobby soon became something I could not live without.</p>
+        <p>Each crochet piece carries with it <strong>hours of meticulous work</strong>, a deep love for the craft, and the desire to bring something truly beautiful into your life. No machines. No shortcuts. Just thread, a hook, and devotion.</p>
+        <p>I believe handcrafted things carry a <strong>soul that mass-produced items simply cannot replicate</strong>.</p>
+        <div class="story-line"></div>
+        <div class="story-sig">Jyoti</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- OFFER -->
+<div class="offer-section">
+  <div class="offer-inner">
+    <div>
+      <div class="sec-tag" style="margin-bottom:12px"><div class="sec-tag-line"></div><div class="sec-tag-txt">Limited Time</div></div>
+      <div class="offer-txt-title">Welcome <em>Discount</em></div>
+      <p class="offer-txt-desc">Use code JYOTI15 at checkout and get 15% off on your first order. Experience premium handcrafted crochet for less.</p>
+      <a href="#prods-section" class="btn-prim">Shop Now</a>
+    </div>
+    <div class="offer-circle">
+      <div class="oc-pct">15%</div>
+      <div class="oc-off">Off</div>
+      <div class="oc-lbl">First Order</div>
+    </div>
+    <div class="offer-right">
+      <ul class="offer-list">
+        <li>100% Handmade Guarantee</li>
+        <li>Free Premium Gift Wrapping</li>
+        <li>Safe &amp; Insured Shipping</li>
+        <li>Custom Order Support</li>
+        <li>Easy Returns Policy</li>
+      </ul>
+      <a href="#prods-section" class="btn-sec">View All Products</a>
+    </div>
+  </div>
+</div>
+
+<!-- TESTIMONIALS -->
+<div class="testi-section">
+  <div class="section">
+    <div class="sec-hd">
+      <div class="sec-tag"><div class="sec-tag-line"></div><div class="sec-tag-txt">Customer Stories</div><div class="sec-tag-line"></div></div>
+      <h2 class="sec-title">What They <em>Say</em></h2>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <div class="testi-q">"</div>
+        <p class="testi-txt">The crochet bag I ordered was absolutely breathtaking. The craftsmanship is beyond anything I have seen. Everyone asks me about it when I step out.</p>
+        <div class="testi-auth">
+          <div class="testi-av">P</div>
+          <div>
+            <div class="testi-stars"><svg class="t-star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="t-star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="t-star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="t-star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="t-star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+            <div class="testi-name">Priya Sharma</div>
+            <div class="testi-loc">Mumbai, India</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-q">"</div>
+        <p class="testi-txt">I ordered a custom home decor piece and Jyoti understood exactly what I envisioned. The result was even more beautiful than I imagined.</p>
+        <div class="testi-auth">
+          <div class="testi-av">A</div>
+          <div>
+            <div class="testi-stars"><svg class="t-star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="t-star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="t-star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="t-star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="t-star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+            <div class="testi-name">Anjali Mehta</div>
+            <div class="testi-loc">Delhi, India</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-q">"</div>
+        <p class="testi-txt">The crochet toy I gifted my daughter has become her most treasured possession. The quality and love woven into every stitch is truly extraordinary.</p>
+        <div class="testi-auth">
+          <div class="testi-av">R</div>
+          <div>
+            <div class="testi-stars"><svg class="t-star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="t-star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="t-star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="t-star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="t-star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+            <div class="testi-name">Rekha Patel</div>
+            <div class="testi-loc">Bangalore, India</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- NEWSLETTER -->
+<div class="nl-section">
+  <div class="nl-inner">
+    <h2 class="nl-title">Stay <em style="font-style:italic;color:var(--g)">Connected</em></h2>
+    <p class="nl-desc">Be the first to know about new collections, exclusive offers and handcrafting stories from the studio.</p>
+    <div class="nl-form">
+      <input class="nl-inp" id="nl-em" type="email" placeholder="Your email address">
+      <button class="nl-btn" onclick="doNl()">Subscribe</button>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-main">
+    <div>
+      <div class="foot-brand-name">Jyoti <em>Crochets</em></div>
+      <p class="foot-desc">Born from passion and perfected through years of dedicated craftsmanship. Every piece is a unique work of art, made entirely by hand.</p>
+      <div class="foot-social">
+        <div class="soc" title="Instagram"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></div>
+        <div class="soc" title="Facebook"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></div>
+        <div class="soc" title="WhatsApp"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg></div>
+        <div class="soc" title="Pinterest"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12c0 4.24 2.65 7.86 6.39 9.29-.09-.78-.17-1.98.03-2.83.19-.77 1.27-5.38 1.27-5.38s-.32-.65-.32-1.61c0-1.51.88-2.64 1.97-2.64.93 0 1.38.7 1.38 1.54 0 .94-.6 2.34-.91 3.64-.26 1.09.54 1.97 1.6 1.97 1.92 0 3.4-2.02 3.4-4.94 0-2.58-1.86-4.39-4.52-4.39-3.08 0-4.89 2.31-4.89 4.7 0 .93.36 1.93.8 2.47a.32.32 0 01.07.31c-.08.34-.27 1.09-.3 1.24-.05.2-.16.24-.37.14-1.39-.65-2.26-2.68-2.26-4.32 0-3.51 2.55-6.74 7.36-6.74 3.86 0 6.86 2.75 6.86 6.42 0 3.83-2.41 6.91-5.76 6.91-1.13 0-2.19-.59-2.55-1.28l-.69 2.59c-.25.97-.93 2.18-1.39 2.92.75.23 1.54.36 2.36.36 5.52 0 10-4.48 10-10S17.52 2 12 2z"/></svg></div>
+      </div>
+    </div>
+    <div class="foot-col">
+      <h4>Shop</h4>
+      <ul>
+        <li><a href="#">All Collections</a></li>
+        <li><a href="#">New Arrivals</a></li>
+        <li><a href="#">Best Sellers</a></li>
+        <li><a href="#">Custom Orders</a></li>
+        <li><a href="#">Gift Sets</a></li>
+      </ul>
+    </div>
+    <div class="foot-col">
+      <h4>Help</h4>
+      <ul>
+        <li><a href="#">How To Order</a></li>
+        <li><a href="#">Shipping Policy</a></li>
+        <li><a href="#">Return Policy</a></li>
+        <li><a href="#">Care Guide</a></li>
+        <li><a href="#">Contact Us</a></li>
+      </ul>
+    </div>
+    <div class="foot-col">
+      <h4>About</h4>
+      <ul>
+        <li><a href="#">About Jyoti</a></li>
+        <li><a href="#">Our Craft</a></li>
+        <li><a href="#">Materials Used</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Terms of Service</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot-bot">
+    <div class="foot-copy">2024 Jyoti Crochets. All Rights Reserved.</div>
+    <div class="foot-live"><div class="live-dot"></div>&nbsp;Live &amp; Crafting</div>
+  </div>
+</footer>
+</div>
+
+<!-- ======= ADMIN PAGE ======= -->
+<div id="adm-page">
+  <div class="adm-hdr">
+    <div class="adm-brand">Jyoti <em>Crochets</em></div>
+    <div class="adm-hdr-r">
+      <div class="adm-pill">Owner Dashboard</div>
+      <div style="display:flex;align-items:center;gap:5px;font-size:0.58rem;color:rgba(255,255,255,0.2)"><div class="live-dot"></div>Active</div>
+      <button class="adm-out" onclick="doLogout()">Logout</button>
+    </div>
+  </div>
+  <div class="adm-layout">
+    <div class="adm-nav">
+      <div class="adm-ni on" onclick="showPn('dashboard');setAdmNi(this)">
+        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        Dashboard
+      </div>
+      <div class="adm-ni" onclick="showPn('add');setAdmNi(this)">
+        <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Add Product
+      </div>
+      <div class="adm-ni" onclick="showPn('manage');setAdmNi(this);renderTbl(prods)">
+        <svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>
+        Manage Products
+      </div>
+      <div class="adm-ni" onclick="showPn('orders');setAdmNi(this)">
+        <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        Orders
+      </div>
+      <div class="adm-ni" onclick="showPn('settings');setAdmNi(this)">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93l-1.41 1.41M5.34 18.66l-1.41 1.41M4.93 4.93l1.41 1.41M18.66 18.66l1.41 1.41M2 12h2M20 12h2M12 2v2M12 20v2"/></svg>
+        Settings
+      </div>
+    </div>
+    <div class="adm-main">
+      <!-- DASHBOARD -->
+      <div class="adm-pn on" id="pn-dashboard">
+        <h1 class="adm-pg-title">Dashboard</h1>
+        <p class="adm-pg-sub">Welcome back, Jyoti</p>
+        <div class="dash-grid">
+          <div class="dash-card"><div class="dc-lbl">Total Products</div><div class="dc-val" id="d-tot">0</div><div class="dc-note">Active listings</div></div>
+          <div class="dash-card"><div class="dc-lbl">Catalog Value</div><div class="dc-val">Rs.<span id="d-val">0</span></div><div class="dc-note">Inventory value</div></div>
+          <div class="dash-card"><div class="dc-lbl">Categories</div><div class="dc-val" id="d-cats">0</div><div class="dc-note">Active</div></div>
+          <div class="dash-card"><div class="dc-lbl">Cart Items</div><div class="dc-val" id="d-cart">0</div><div class="dc-note">In carts</div></div>
+        </div>
+        <div class="tbl-wrap">
+          <div class="tbl-toolbar">
+            <span class="tbl-ttl">Recent Products</span>
+            <button class="adm-save" style="padding:8px 18px;font-size:0.58rem" onclick="showPn('add');setAdmNi(document.querySelectorAll('.adm-ni')[1])">Add New</button>
+          </div>
+          <table><thead><tr><th>Image</th><th>Name</th><th>Category</th><th>Price</th><th>Status</th><th>Actions</th></tr></thead><tbody id="dash-tb"></tbody></table>
+        </div>
+      </div>
+      <!-- ADD PRODUCT -->
+      <div class="adm-pn" id="pn-add">
+        <h1 class="adm-pg-title" id="add-ttl">Add New Product</h1>
+        <p class="adm-pg-sub" id="add-sub">Create a new listing for your store</p>
+        <form id="pf" onsubmit="submitProd(event)">
+          <input type="hidden" id="eid">
+          <div class="form-grid">
+            <div>
+              <div class="form-sec">
+                <div class="form-sec-ttl">Product Information</div>
+                <div class="afg"><label class="aflbl">Product Name *</label><input class="afinp" id="pn-name" placeholder="e.g. Bohemian Crochet Tote" required></div>
+                <div class="frow">
+                  <div class="afg"><label class="aflbl">Price (Rs.) *</label><input class="afinp" id="pn-price" type="number" placeholder="299" min="1" required></div>
+                  <div class="afg"><label class="aflbl">Original Price</label><input class="afinp" id="pn-orig" type="number" placeholder="399"></div>
+                </div>
+                <div class="afg"><label class="aflbl">Category *</label><select class="afsel" id="pn-cat" required><option value="">Select</option><option value="bags">Bags</option><option value="home-decor">Home Decor</option><option value="clothing">Clothing</option><option value="accessories">Accessories</option><option value="toys">Toys</option><option value="gifts">Gift Sets</option></select></div>
+                <div class="afg"><label class="aflbl">Description *</label><textarea class="afta" id="pn-desc" placeholder="Describe materials, dimensions, features..." required></textarea></div>
+                <div class="frow">
+                  <div class="afg"><label class="aflbl">Badge</label><select class="afsel" id="pn-badge"><option value="">None</option><option value="new">New Arrival</option><option value="best">Best Seller</option><option value="sale">On Sale</option><option value="ltd">Limited</option></select></div>
+                  <div class="afg"><label class="aflbl">Status</label><select class="afsel" id="pn-status"><option value="active">Active</option><option value="draft">Draft</option></select></div>
+                </div>
+                <div class="afg"><label class="aflbl">Materials</label><input class="afinp" id="pn-mat" placeholder="e.g. 100% Cotton Yarn"></div>
+                <div class="frow">
+                  <div class="afg"><label class="aflbl">Size / Dimensions</label><input class="afinp" id="pn-size" placeholder="e.g. 30x25x10 cm"></div>
+                  <div class="afg"><label class="aflbl">Stock Quantity</label><input class="afinp" id="pn-stock" type="number" value="1" min="0"></div>
+                </div>
+                <div class="frow">
+                  <div class="afg"><label class="aflbl">Colors Available</label><input class="afinp" id="pn-colors" placeholder="e.g. Ivory, Sage Green"></div>
+                  <div class="afg"><label class="aflbl">Delivery Time</label><input class="afinp" id="pn-del" placeholder="e.g. 3-5 days"></div>
+                </div>
+                <div class="afg"><label class="aflbl">Care Instructions</label><textarea class="afta" id="pn-care" placeholder="e.g. Hand wash cold..." style="min-height:60px"></textarea></div>
+              </div>
+            </div>
+            <div>
+              <div class="form-sec">
+                <div class="form-sec-ttl">Product Images</div>
+                <div class="upload-area" id="upload-area">
+                  <input type="file" id="img-inp" accept="image/*" multiple onchange="handleImgs(event)">
+                  <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                  <div class="upload-txt">Click or drag images here</div>
+                  <div class="upload-sub">JPG, PNG, WEBP — Multiple supported</div>
+                </div>
+                <div class="prev-grid" id="prev-grid"></div>
+              </div>
+              <div class="form-sec" style="margin-top:18px">
+                <div class="form-sec-ttl">Extra Details</div>
+                <div class="afg"><label class="aflbl">Custom Order Available</label><select class="afsel" id="pn-custom"><option value="yes">Yes</option><option value="no">No</option></select></div>
+              </div>
+            </div>
+          </div>
+          <div style="margin-top:22px;display:flex;gap:12px">
+            <button type="submit" class="adm-save" id="psub-btn">Publish Product</button>
+            <button type="button" onclick="resetPF()" style="background:transparent;border:1px solid var(--border);color:rgba(255,255,255,0.25);padding:12px 24px;font-size:0.6rem;letter-spacing:3px;text-transform:uppercase;cursor:pointer;border-radius:4px;font-family:'Inter',sans-serif;transition:all 0.2s" onmouseover="this.style.borderColor='var(--border-gold)'" onmouseout="this.style.borderColor='var(--border)'">Clear</button>
+          </div>
+        </form>
+      </div>
+      <!-- MANAGE -->
+      <div class="adm-pn" id="pn-manage">
+        <h1 class="adm-pg-title">Manage Products</h1>
+        <p class="adm-pg-sub">Edit or remove products from your store</p>
+        <div class="tbl-wrap">
+          <div class="tbl-toolbar">
+            <span class="tbl-ttl">All Products (<span id="manage-ct">0</span>)</span>
+            <input class="tbl-srch" placeholder="Search..." onkeyup="srchTbl(this.value)">
+          </div>
+          <table><thead><tr><th>Image</th><th>Name</th><th>Category</th><th>Price</th><th>Stock</th><th>Status</th><th>Actions</th></tr></thead><tbody id="manage-tb"></tbody></table>
+        </div>
+      </div>
+      <!-- ORDERS -->
+      <div class="adm-pn" id="pn-orders">
+        <h1 class="adm-pg-title">Orders</h1>
+        <p class="adm-pg-sub">Customer orders will appear here</p>
+        <div class="tbl-wrap" style="text-align:center;padding:70px 30px">
+          <svg style="width:48px;height:48px;stroke:rgba(201,168,76,0.12);margin:0 auto 14px;display:block;fill:none;stroke-width:1" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+          <p style="font-size:0.75rem;color:rgba(255,255,255,0.15)">No orders yet. They will appear here once customers place orders.</p>
+        </div>
+      </div>
+      <!-- SETTINGS -->
+      <div class="adm-pn" id="pn-settings">
+        <h1 class="adm-pg-title">Settings</h1>
+        <p class="adm-pg-sub">Configure your store</p>
+        <div class="form-sec" style="max-width:520px">
+          <div class="form-sec-ttl">Store Information</div>
+          <div class="afg"><label class="aflbl">Store Name</label><input class="afinp" value="Jyoti Crochets"></div>
+          <div class="afg"><label class="aflbl">Contact Email</label><input class="afinp" type="email" placeholder="your@email.com"></div>
+          <div class="afg"><label class="aflbl">WhatsApp Number</label><input class="afinp" placeholder="+91 XXXXX XXXXX"></div>
+          <div class="afg"><label class="aflbl">Announcement Text</label><input class="afinp" value="Free gift wrapping on every order | 100% Handcrafted | Ships across India"></div>
+          <button class="adm-save" onclick="toast('Settings saved.','ok')">Save Settings</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// DATA
+let prods=JSON.parse(localStorage.getItem('jc3_prods')||'[]');
+let cart=JSON.parse(localStorage.getItem('jc3_cart')||'[]');
+let imgs=[];
+let editId=null;
+let curF='all';
+let curS='df';
+
+// LOADER
+window.addEventListener('load',()=>{
+  setTimeout(()=>{
+    document.getElementById('loader').classList.add('hide');
+    renderProds();
+    updateBadge();
+    updateCatCounts();
+    animCnt();
+    startClock();
+  },2200);
+});
+
+// CLOCK
+function startClock(){
+  function tick(){
+    const now=new Date();
+    const days=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    const d=now.getDate();
+    const mo=months[now.getMonth()];
+    const y=now.getFullYear();
+    let h=now.getHours();
+    const m=String(now.getMinutes()).padStart(2,'0');
+    const s=String(now.getSeconds()).padStart(2,'0');
+    const ampm=h>=12?'PM':'AM';
+    h=h%12||12;
+    const hStr=String(h).padStart(2,'0');
+    const dtDate=document.getElementById('dt-date');
+    const dtTime=document.getElementById('dt-time');
+    const dtDay=document.getElementById('dt-day');
+    if(dtDate)dtDate.textContent=`${d} ${mo} ${y}`;
+    if(dtTime)dtTime.textContent=`${hStr}:${m}:${s} ${ampm}`;
+    if(dtDay)dtDay.textContent=days[now.getDay()];
+  }
+  tick();
+  setInterval(tick,1000);
+}
+
+// HERO COUNT
+function animCnt(){
+  const el=document.getElementById('hero-cnt');
+  const t=prods.length;
+  let c=0;
+  const iv=setInterval(()=>{
+    c=Math.min(c+1,t);
+    el.innerHTML=c+'<b>+</b>';
+    if(c>=t)clearInterval(iv);
+  },80);
+}
+
+// SCROLL TOP
+window.addEventListener('scroll',()=>{
+  document.getElementById('stbtn').classList.toggle('show',window.scrollY>400);
+});
+function scrollTop(){window.scrollTo({top:0,behavior:'smooth'})}
+function goToProds(){document.getElementById('prods-section').scrollIntoView({behavior:'smooth'})}
+
+// NAV
+function setNav(el){document.querySelectorAll('.nav-a').forEach(a=>a.classList.remove('on'));el.classList.add('on')}
+function setFb(el){document.querySelectorAll('.fb').forEach(b=>b.classList.remove('on'));el.classList.add('on')}
+
+// ADMIN LOGIN
+function openAdmOv(){document.getElementById('adm-ov').classList.add('open')}
+function closeAdmOv(){document.getElementById('adm-ov').classList.remove('open');clrErr()}
+function clrErr(){
+  ['au','ap','at'].forEach(id=>{document.getElementById(id).classList.remove('err')});
+  ['eu','ep','et'].forEach(id=>{document.getElementById(id).classList.remove('show')});
+}
+function doAdmLogin(e){
+  e.preventDefault();
+  clrErr();
+  const u=document.getElementById('au').value.trim();
+  const p=document.getElementById('ap').value.trim();
+  const t=document.getElementById('at').value.trim();
+  let err=false;
+  if(u!=='Jyoti_prava.s'){document.getElementById('au').classList.add('err');document.getElementById('eu').classList.add('show');err=true}
+  if(p!=='Jyoti._ps'){document.getElementById('ap').classList.add('err');document.getElementById('ep').classList.add('show');err=true}
+  if(t!=='20262027'){document.getElementById('at').classList.add('err');document.getElementById('et').classList.add('show');err=true}
+  if(!err){
+    closeAdmOv();
+    document.getElementById('site').classList.add('off');
+    document.getElementById('adm-page').classList.add('on');
+    refreshDash();
+    toast('Welcome back, Jyoti.','ok');
+  }
+}
+function doLogout(){
+  document.getElementById('adm-page').classList.remove('on');
+  document.getElementById('site').classList.remove('off');
+  ['au','ap','at'].forEach(id=>document.getElementById(id).value='');
+  scrollTop();toast('Logged out.','ok');
+}
+
+// ADMIN PANELS
+function showPn(n){
+  document.querySelectorAll('.adm-pn').forEach(p=>p.classList.remove('on'));
+  document.getElementById('pn-'+n).classList.add('on');
+  if(n==='dashboard')refreshDash();
+}
+function setAdmNi(el){document.querySelectorAll('.adm-ni').forEach(n=>n.classList.remove('on'));el.classList.add('on')}
+
+function refreshDash(){
+  document.getElementById('d-tot').textContent=prods.length;
+  document.getElementById('d-val').textContent=prods.reduce((s,p)=>s+Number(p.price),0).toLocaleString('en-IN');
+  document.getElementById('d-cats').textContent=new Set(prods.map(p=>p.cat)).size;
+  document.getElementById('d-cart').textContent=cart.reduce((s,i)=>s+i.qty,0);
+  const tb=document.getElementById('dash-tb');
+  if(!prods.length){tb.innerHTML='<tr><td colspan="6" style="text-align:center;padding:36px;color:rgba(255,255,255,0.15);font-size:0.72rem">No products yet.</td></tr>';return}
+  tb.innerHTML=[...prods].reverse().slice(0,6).map(row).join('');
+}
+
+const CAT={bags:'Bags','home-decor':'Home Decor',clothing:'Clothing',accessories:'Accessories',toys:'Toys',gifts:'Gift Sets'};
+
+function row(p){
+  const im=p.imgs&&p.imgs[0]
+    ?`<div class="tbl-img"><img src="${p.imgs[0]}" alt="${p.name}"></div>`
+    :`<div class="tbl-img"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(201,168,76,0.25)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>`;
+  return`<tr>
+    <td>${im}</td>
+    <td><span class="tbl-name">${p.name}</span></td>
+    <td>${CAT[p.cat]||p.cat}</td>
+    <td class="tbl-price">Rs.${Number(p.price).toLocaleString('en-IN')}</td>
+    <td><span class="st-pill ${p.status==='draft'?'st-draft':'st-active'}">${p.status==='draft'?'Draft':'Active'}</span></td>
+    <td><div class="tbl-btns"><button class="tbl-edit" onclick="editProd('${p.id}')">Edit</button><button class="tbl-del" onclick="delProd('${p.id}')">Delete</button></div></td>
+  </tr>`;
+}
+
+function renderTbl(list){
+  document.getElementById('manage-ct').textContent=list.length;
+  const tb=document.getElementById('manage-tb');
+  if(!list.length){tb.innerHTML='<tr><td colspan="7" style="text-align:center;padding:36px;color:rgba(255,255,255,0.15);font-size:0.72rem">No products found.</td></tr>';return}
+  tb.innerHTML=list.map(p=>{
+    const im=p.imgs&&p.imgs[0]
+      ?`<div class="tbl-img"><img src="${p.imgs[0]}" alt="${p.name}"></div>`
+      :`<div class="tbl-img"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(201,168,76,0.25)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>`;
+    return`<tr>
+      <td>${im}</td>
+      <td><span class="tbl-name">${p.name}</span></td>
+      <td>${CAT[p.cat]||p.cat}</td>
+      <td class="tbl-price">Rs.${Number(p.price).toLocaleString('en-IN')}</td>
+      <td style="color:rgba(255,255,255,0.35)">${p.stock||1}</td>
+      <td><span class="st-pill ${p.status==='draft'?'st-draft':'st-active'}">${p.status==='draft'?'Draft':'Active'}</span></td>
+      <td><div class="tbl-btns"><button class="tbl-edit" onclick="editProd('${p.id}')">Edit</button><button class="tbl-del" onclick="delProd('${p.id}')">Delete</button></div></td>
+    </tr>`;
+  }).join('');
+}
+
+function srchTbl(q){
+  renderTbl(prods.filter(p=>p.name.toLowerCase().includes(q.toLowerCase())||p.cat.toLowerCase().includes(q.toLowerCase())));
+}
+
+// IMAGES
+function handleImgs(e){
+  Array.from(e.target.files).forEach(f=>{
+    const r=new FileReader();
+    r.onload=ev=>{imgs.push(ev.target.result);renderPrev()};
+    r.readAsDataURL(f);
+  });
+}
+function renderPrev(){
+  document.getElementById('prev-grid').innerHTML=imgs.map((img,i)=>`
+    <div class="prev-item"><img src="${img}" alt="Preview"><button type="button" class="prev-rm" onclick="rmImg(${i})">&#10005;</button></div>
+  `).join('');
+}
+function rmImg(i){imgs.splice(i,1);renderPrev()}
+
+const ua=document.getElementById('upload-area');
+if(ua){
+  ua.addEventListener('dragover',e=>{e.preventDefault();ua.classList.add('drag')});
+  ua.addEventListener('dragleave',()=>ua.classList.remove('drag'));
+  ua.addEventListener('drop',e=>{
+    e.preventDefault();ua.classList.remove('drag');
+    Array.from(e.dataTransfer.files).filter(f=>f.type.startsWith('image/')).forEach(f=>{
+      const r=new FileReader();r.onload=ev=>{imgs.push(ev.target.result);renderPrev()};r.readAsDataURL(f);
+    });
+  });
+}
+
+// PRODUCT CRUD
+function submitProd(e){
+  e.preventDefault();
+  const data={
+    id:editId||'p'+Date.now(),
+    name:document.getElementById('pn-name').value.trim(),
+    price:document.getElementById('pn-price').value,
+    orig:document.getElementById('pn-orig').value,
+    cat:document.getElementById('pn-cat').value,
+    desc:document.getElementById('pn-desc').value.trim(),
+    badge:document.getElementById('pn-badge').value,
+    status:document.getElementById('pn-status').value,
+    materials:document.getElementById('pn-mat').value,
+    size:document.getElementById('pn-size').value,
+    stock:document.getElementById('pn-stock').value,
+    colors:document.getElementById('pn-colors').value,
+    delivery:document.getElementById('pn-del').value,
+    care:document.getElementById('pn-care').value,
+    custom:document.getElementById('pn-custom').value,
+    imgs,rating:4.5,reviews:0,
+    created:new Date().toISOString()
+  };
+  if(editId){
+    const i=prods.findIndex(p=>p.id===editId);
+    if(i!==-1)prods[i]=data;
+    toast(`"${data.name}" updated.`,'ok');
+  }else{
+    prods.push(data);
+    toast(`"${data.name}" published.`,'ok');
+  }
+  saveProds();resetPF();renderProds();updateCatCounts();animCnt();
+}
+function saveProds(){localStorage.setItem('jc3_prods',JSON.stringify(prods))}
+function saveCart(){localStorage.setItem('jc3_cart',JSON.stringify(cart))}
+function resetPF(){
+  document.getElementById('pf').reset();
+  imgs=[];editId=null;
+  document.getElementById('eid').value='';
+  document.getElementById('prev-grid').innerHTML='';
+  document.getElementById('psub-btn').textContent='Publish Product';
+  document.getElementById('add-ttl').textContent='Add New Product';
+  document.getElementById('add-sub').textContent='Create a new listing for your store';
+}
+function editProd(id){
+  const p=prods.find(x=>x.id===id);if(!p)return;
+  editId=id;
+  document.getElementById('pn-name').value=p.name;
+  document.getElementById('pn-price').value=p.price;
+  document.getElementById('pn-orig').value=p.orig||'';
+  document.getElementById('pn-cat').value=p.cat;
+  document.getElementById('pn-desc').value=p.desc;
+  document.getElementById('pn-badge').value=p.badge||'';
+  document.getElementById('pn-status').value=p.status||'active';
+  document.getElementById('pn-mat').value=p.materials||'';
+  document.getElementById('pn-size').value=p.size||'';
+  document.getElementById('pn-stock').value=p.stock||1;
+  document.getElementById('pn-colors').value=p.colors||'';
+  document.getElementById('pn-del').value=p.delivery||'';
+  document.getElementById('pn-care').value=p.care||'';
+  document.getElementById('pn-custom').value=p.custom||'yes';
+  imgs=[...(p.imgs||[])];renderPrev();
+  document.getElementById('psub-btn').textContent='Update Product';
+  document.getElementById('add-ttl').textContent='Edit Product';
+  document.getElementById('add-sub').textContent='Editing: '+p.name;
+  showPn('add');setAdmNi(document.querySelectorAll('.adm-ni')[1]);
+  document.querySelector('.adm-main').scrollTop=0;
+}
+function delProd(id){
+  const p=prods.find(x=>x.id===id);if(!p)return;
+  if(!confirm(`Remove "${p.name}"?`))return;
+  prods=prods.filter(x=>x.id!==id);
+  saveProds();renderProds();updateCatCounts();refreshDash();renderTbl(prods);
+  toast(`"${p.name}" removed.`,'ok');
+}
+
+// RENDER PRODUCTS
+function renderProds(f=curF,s=curS){
+  curF=f;curS=s;
+  const grid=document.getElementById('prod-grid');
+  let list=prods.filter(p=>p.status!=='draft');
+  if(f!=='all'){
+    if(f==='new')list=list.filter(p=>p.badge==='new');
+    else list=list.filter(p=>p.cat===f);
+  }
+  if(s==='lo')list.sort((a,b)=>Number(a.price)-Number(b.price));
+  else if(s==='hi')list.sort((a,b)=>Number(b.price)-Number(a.price));
+  else if(s==='nw')list.sort((a,b)=>new Date(b.created)-new Date(a.created));
+  if(!list.length){
+    grid.innerHTML=`<div class="no-prods">
+      <svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+      <h3>${f==='all'?'No Products Yet':'No Products Here'}</h3>
+      <p>${f==='all'?'Beautiful pieces will appear here once added.':'Check back soon.'}</p>
+    </div>`;
+    return;
+  }
+  grid.innerHTML=list.map(pCard).join('');
+}
+
+function pCard(p){
+  const bdg={new:['New','pb-new'],best:['Best Seller','pb-best'],sale:['Sale','pb-sale'],ltd:['Limited','pb-ltd']}[p.badge]||null;
+  const st=makeStars(p.rating||4.5);
+  const im=p.imgs&&p.imgs[0]
+    ?`<img class="prod-img" src="${p.imgs[0]}" alt="${p.name}">`
+    :`<div class="prod-ph"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>Jyoti Crochets</span></div>`;
+  const origEl=p.orig?`<span class="price-was">Rs.${Number(p.orig).toLocaleString('en-IN')}</span>`:'';
+  return`<div class="prod-card" onclick="openProdOv('${p.id}')">
+    <div class="prod-img-box">
+      ${im}
+      ${bdg?`<div class="prod-badge ${bdg[1]}">${bdg[0]}</div>`:''}
+      <button class="prod-wish" onclick="event.stopPropagation();toggleWish(this)"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></button>
+      <div class="prod-hover-bar">
+        <button class="phb-view" onclick="event.stopPropagation();openProdOv('${p.id}')">Quick View</button>
+        <button class="phb-cart" onclick="event.stopPropagation();addToCart('${p.id}')">Add To Cart</button>
+      </div>
+    </div>
+    <div class="prod-info">
+      <div class="prod-cat-lbl">${CAT[p.cat]||p.cat}</div>
+      <div class="prod-name">${p.name}</div>
+      <div class="prod-stars-row"><div class="stars-wrap">${st}</div><span class="rev">(${p.reviews||0})</span></div>
+      <div class="prod-price-row">
+        <div><span class="price-now">Rs.${Number(p.price).toLocaleString('en-IN')}</span>${origEl}</div>
+        <button class="cart-mini" onclick="event.stopPropagation();addToCart('${p.id}')"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg></button>
+      </div>
+    </div>
+  </div>`;
+}
+
+function makeStars(r){
+  let h='';
+  for(let i=1;i<=5;i++)h+=`<svg class="star${i>Math.floor(r)?' e':''}" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>`;
+  return h;
+}
+
+// FILTER / SORT
+function filterCat(f){curF=f;renderProds(f,curS)}
+function doSort(s){curS=s;renderProds(curF,s)}
+
+// SEARCH
+function doSearch(){
+  const q=document.getElementById('si').value.toLowerCase().trim();
+  const c=document.getElementById('sc').value;
+  let list=prods.filter(p=>p.status!=='draft');
+  if(q)list=list.filter(p=>p.name.toLowerCase().includes(q)||p.desc.toLowerCase().includes(q));
+  const cm={'Bags':'bags','Home Decor':'home-decor','Clothing':'clothing','Accessories':'accessories','Toys':'toys','Gifts':'gifts'};
+  if(c!=='All'&&cm[c])list=list.filter(p=>p.cat===cm[c]);
+  const grid=document.getElementById('prod-grid');
+  if(!list.length){grid.innerHTML=`<div class="no-prods"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg><h3>No Results</h3><p>Try a different search term.</p></div>`;
+  }else{grid.innerHTML=list.map(pCard).join('')}
+  document.getElementById('prods-section').scrollIntoView({behavior:'smooth'});
+}
+
+// CATEGORY COUNTS
+function updateCatCounts(){
+  const active=prods.filter(p=>p.status!=='draft');
+  ['bags','home-decor','clothing','accessories','toys','gifts'].forEach(c=>{
+    const n=active.filter(p=>p.cat===c).length;
+    const el=document.getElementById('cc-'+c);
+    if(el)el.textContent=n+(n===1?' Piece':' Pieces');
+  });
+}
+
+// PRODUCT MODAL
+function openProdOv(id){
+  const p=prods.find(x=>x.id===id);if(!p)return;
+  const st=makeStars(p.rating||4.5);
+  const im=p.imgs&&p.imgs[0]
+    ?`<img src="${p.imgs[0]}" alt="${p.name}" style="width:100%;height:100%;object-fit:cover">`
+    :`<div class="pm-img-ph"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>Jyoti Crochets</span></div>`;
+  let details='';
+  if(p.materials)details+=`<div class="pm-detail"><span class="pm-d-lbl">Materials</span><span class="pm-d-val">${p.materials}</span></div>`;
+  if(p.size)details+=`<div class="pm-detail"><span class="pm-d-lbl">Size</span><span class="pm-d-val">${p.size}</span></div>`;
+  if(p.delivery)details+=`<div class="pm-detail"><span class="pm-d-lbl">Delivery</span><span class="pm-d-val">${p.delivery}</span></div>`;
+  if(p.care)details+=`<div class="pm-detail"><span class="pm-d-lbl">Care</span><span class="pm-d-val">${p.care}</span></div>`;
+  if(p.colors)details+=`<div class="pm-detail"><span class="pm-d-lbl">Colors</span><span class="pm-d-val">${p.colors}</span></div>`;
+  document.getElementById('pm-content').innerHTML=`
+    <div class="pm-img-side">${im}</div>
+    <div class="pm-info-side">
+      <div class="pm-cat">${CAT[p.cat]||p.cat}</div>
+      <h2 class="pm-name">${p.name}</h2>
+      <div class="pm-stars-row"><div class="stars-wrap">${st}</div><span style="font-size:0.62rem;color:rgba(255,255,255,0.25)">(${p.reviews||0} reviews)</span></div>
+      ${p.orig?`<div class="pm-was">Rs.${Number(p.orig).toLocaleString('en-IN')}</div>`:''}
+      <div class="pm-price">Rs.${Number(p.price).toLocaleString('en-IN')}</div>
+      <p class="pm-desc">${p.desc}</p>
+      ${details?`<hr class="pm-hr">${details}<hr class="pm-hr">`:''}
+      <div class="pm-qty-row">
+        <span class="pm-qty-lbl">Qty</span>
+        <div class="qty-ctrl">
+          <button type="button" class="qb" onclick="cq(-1)">-</button>
+          <input class="qi" id="mq" value="1" min="1">
+          <button type="button" class="qb" onclick="cq(1)">+</button>
+        </div>
+      </div>
+      <button class="pm-add" onclick="addToCartQ('${p.id}')">Add To Cart</button>
+      <div class="pm-note">${p.stock?p.stock+' in stock':''} ${p.custom==='yes'?'· Custom orders available':''}</div>
+    </div>
+  `;
+  document.getElementById('prod-ov').classList.add('open');
+}
+function closeProdOv(){document.getElementById('prod-ov').classList.remove('open')}
+function cq(d){const i=document.getElementById('mq');if(i)i.value=Math.max(1,parseInt(i.value)+d)}
+function addToCartQ(id){const q=parseInt(document.getElementById('mq').value)||1;addToCart(id,q);closeProdOv()}
+
+// CART
+function addToCart(id,qty=1){
+  const p=prods.find(x=>x.id===id);if(!p)return;
+  const ex=cart.find(i=>i.id===id);
+  if(ex)ex.qty+=qty;
+  else cart.push({id:p.id,name:p.name,price:p.price,img:p.imgs&&p.imgs[0]?p.imgs[0]:null,qty});
+  saveCart();updateBadge();renderCart();
+  toast(`"${p.name}" added to cart.`,'ok');
+  openCart();
+}
+function updateBadge(){
+  const t=cart.reduce((s,i)=>s+i.qty,0);
+  document.getElementById('cart-badge').textContent=t;
+  document.getElementById('cart-ct').textContent=t+' '+(t===1?'Item':'Items');
+}
+function openCart(){
+  document.getElementById('cart-side').classList.add('open');
+  document.getElementById('cart-bk').classList.add('open');
+  renderCart();
+}
+function closeCart(){
+  document.getElementById('cart-side').classList.remove('open');
+  document.getElementById('cart-bk').classList.remove('open');
+}
+function renderCart(){
+  const body=document.getElementById('cart-body');
+  const ft=document.getElementById('cart-ft');
+  if(!cart.length){
+    body.innerHTML=`<div class="cart-empty"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg><p>Your cart is empty</p></div>`;
+    ft.style.display='none';return;
+  }
+  ft.style.display='block';
+  body.innerHTML=cart.map(item=>`
+    <div class="ci">
+      <div class="ci-img">${item.img?`<img src="${item.img}" alt="${item.name}">`:`<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="rgba(201,168,76,0.2)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>`}</div>
+      <div style="flex:1;min-width:0">
+        <div class="ci-nm">${item.name}</div>
+        <div class="ci-pr">Rs.${Number(item.price).toLocaleString('en-IN')}</div>
+        <div class="ci-qty-row">
+          <button class="ci-qb" onclick="updQ('${item.id}',-1)">-</button>
+          <span class="ci-qn">${item.qty}</span>
+          <button class="ci-qb" onclick="updQ('${item.id}',1)">+</button>
+        </div>
+      </div>
+      <button class="ci-rm" onclick="rmItem('${item.id}')">Remove</button>
+    </div>
+  `).join('');
+  const tot=cart.reduce((s,i)=>s+(Number(i.price)*i.qty),0);
+  document.getElementById('cart-total').textContent='Rs.'+tot.toLocaleString('en-IN');
+}
+function updQ(id,d){
+  const i=cart.find(x=>x.id===id);if(!i)return;
+  i.qty+=d;if(i.qty<=0){rmItem(id);return}
+  saveCart();updateBadge();renderCart();
+}
+function rmItem(id){cart=cart.filter(x=>x.id!==id);saveCart();updateBadge();renderCart()}
+function doCheckout(){toast('Checkout coming soon. Contact via WhatsApp to order.','ok')}
+function toggleWish(btn){btn.classList.toggle('liked');toast(btn.classList.contains('liked')?'Added to wishlist.':'Removed from wishlist.','ok')}
+
+// NEWSLETTER
+function doNl(){
+  const e=document.getElementById('nl-em').value.trim();
+  if(!e||!e.includes('@')){toast('Please enter a valid email.','err');return}
+  toast('Thank you for subscribing!','ok');
+  document.getElementById('nl-em').value='';
+}
+
+// TOAST
+function toast(msg,type='ok'){
+  const w=document.getElementById('twrap');
+  const t=document.createElement('div');
+  t.className='toast'+(type==='err'?' err':'');
+  t.textContent=msg;
+  w.appendChild(t);
+  setTimeout(()=>t.classList.add('in'),30);
+  setTimeout(()=>{t.classList.remove('in');setTimeout(()=>t.remove(),500)},3500);
+}
+
+// CLOSE ON OUTSIDE CLICK + ESC
+document.getElementById('adm-ov').addEventListener('click',function(e){if(e.target===this)closeAdmOv()});
+document.getElementById('prod-ov').addEventListener('click',function(e){if(e.target===this)closeProdOv()});
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){closeAdmOv();closeProdOv();closeCart()}
+});
+</script>
+</body>
+</html>
